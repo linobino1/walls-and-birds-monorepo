@@ -36,7 +36,7 @@ create network 'net' using `docker network create net`
 
 start listmonks database:
 ```
-docker compose -f docker-compose.ymal -f docker-compose.production.yaml up -d listmonk_db
+docker compose -f docker-compose.yaml -f docker-compose.production.yaml up -d listmonk_db
 ```
 
 initialize listmonks database:
