@@ -1,0 +1,166 @@
+version: "3.7"
+
+services:
+
+  frontend:
+    expose:
+      - 80
+    networks:
+      - net
+      - default
+    env_file:
+      - .env
+    build:
+      args:
+        VITE_HOST_BACKEND: https://${DOMAIN_BACKEND}
+    environment:
+      NODE_ENV:
+      VITE_HOST_BACKEND: https://${DOMAIN_BACKEND}
+      VIRTUAL_HOST: ${DOMAIN_FRONTEND}
+      LETSENCRYPT_HOST: ${DOMAIN_FRONTEND}
+      LETSENCRYPT_EMAIL: ${EMAIL_ADMIN}
+      VITE_MAILING_LIST_ID: cf2a3ab9-e4cb-4f83-9221-a040736f9172
+    restart: always
+
+  backend:
+    expose:
+      - 3000
+    networks:
+      - net
+      - default
+    volumes:
+      - ./media:/media
+    env_file: .env
+    build:
+      args:
+        PAYLOAD_PUBLIC_HOST_BACKEND: https://${DOMAIN_FRONTEND}
+        PAYLOAD_PUBLIC_HOST_FRONTEND: https://${DOMAIN_BACKEND}
+        MEDIA_DIR: /media
+    environment:
+      NODE_ENV:
+      MEDIA_DIR: /media
+      PAYLOAD_PUBLIC_HOST_BACKEND: https://${DOMAIN_FRONTEND}
+      PAYLOAD_PUBLIC_HOST_FRONTEND: https://${DOMAIN_BACKEND}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+      VIRTUAL_HOST: ${DOMAIN_BACKEND}
+      LETSENCRYPT_HOST: ${DOMAIN_BACKEND}
+      LETSENCRYPT_EMAIL: ${EMAIL_ADMIN}
+      MONGODB_URI: mongodb://backend_db:27017/backend
+    restart: always
+
+  backend_db:
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+  listmonk:
+    ports:
+      - 80:9000
+    networks:
+      - listmonk
+    volumes:
+      - ./listmonk/config.toml:/listmonk/config.toml
+    environment:
+      VIRTUAL_HOST: ${DOMAIN_NEWSLETTER}
+      LETSENCRYPT_HOST: ${DOMAIN_NEWSLETTER}
+      LETSENCRYPT_EMAIL: ${EMAIL_ADMIN}
+    restart: always
+
+  listmonk_db:
+    ports:
+      - 9432:5432
+    networks:
+      - listmonk
+    volumes:
+      - type: volume
+        source: listmonk-data
+        target: /var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=listmonk
+      - POSTGRES_USER=listmonk
+      - POSTGRES_DB=listmonk
+    restart: always
+
+  proxy:
+    container_name: proxy
+    image: jwilder/nginx-proxy:alpine
+    volumes:
+      - html:/usr/share/nginx/html
+      - dhparam:/etc/nginx/dhparam
+      - vhost:/etc/nginx/vhost.d
+      - certs:/etc/nginx/certs:ro
+      - /run/docker.sock:/tmp/docker.sock:ro
+    networks: 
+      - net
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+  
+  certbot:
+    image: nginxproxy/acme-companion
+    container_name: certbot
+    volumes_from:
+      - proxy
+    environment:
+      NGINX_PROXY_CONTAINER: proxy
+      DEFAULT_EMAIL: ${EMAIL_ADMIN}
+      # ACME_CA_URI: https://acme-staging-v02.api.letsencrypt.org/directory # staging
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: always
+
+  firetruck:
+    container_name: firetruck
+    depends_on:
+      - old_db
+    build: ./firetruck
+    ports:
+      - 80:80
+    env_file:
+      - ./.env
+    environment:
+      OLD_DB_HOST: old_db:3306
+      OLD_DB_NAME:
+      OLD_DB_USER:
+      OLD_DB_PASS:
+    volumes:
+      - ./firetruck/:/var/www/html/
+  
+  old_db:
+    container_name: old_db
+    image: mysql
+    env_file:
+      - ./.env
+    volumes:
+      - ./old_db/:/share/
+    environment:
+      MYSQL_ROOT_PASSWORD: ${OLD_DB_ROOT_PASS}
+      MYSQL_DATABASE: ${OLD_DB_NAME}
+      MYSQL_USER: ${OLD_DB_USER}
+      MYSQL_PASSWORD: ${OLD_DB_PASS}
+      VIRTUAL_HOST: ${DOMAIN_FIRETRUCK}
+      LETSENCRYPT_HOST: ${DOMAIN_FIRETRUCK}
+      LETSENCRYPT_EMAIL: ${EMAIL_ADMIN}
+    expose:
+      - 3306
+
+volumes:
+  mongo-data:
+  listmonk-data:
+  data:
+  certs:
+  html:
+  vhost:
+  dhparam:
+  acme:
+
+networks:
+  listmonk:
+  net:
+    name: net
+    external: true

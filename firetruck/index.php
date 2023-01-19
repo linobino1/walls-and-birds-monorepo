@@ -117,7 +117,7 @@ toggletitle(0);
 
 <body>
 
-<video  autoplay loop id="bgvid">
+<video  autoplay muted loop id="bgvid">
   <source src="styles/vid/1.mp4" type="video/mp4">
   <source src="styles/vid/1.webm" type="video/webm">
 
@@ -239,8 +239,6 @@ Your browser does not support the audio element.
    <div><a href="mailto:judy@wallsandbirds.com">@email</a></div>
    <div><a href="impressum.html" target="_blank">impressum</a></div>
   </div>
- 
- 
  
 </div>
 

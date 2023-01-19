@@ -1,4 +1,9 @@
+old_slideshow/
+
 .vscode
+
+# MacOS
+.DS_Store
 
 # Logs
 logs
