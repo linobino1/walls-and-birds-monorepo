@@ -9,4 +9,6 @@ const app = createApp(App)
 
 app.use(router)
 
+app.provide('MAILING_LIST_ID', import.meta.env.VITE_MAILING_LIST_ID);
+
 app.mount('#app')
