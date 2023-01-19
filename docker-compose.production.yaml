@@ -118,7 +118,9 @@ services:
     container_name: firetruck
     depends_on:
       - old_db
-    build: ./firetruck
+    build:
+      context: ./firetruck
+      dockerfile: Dockerfile
     ports:
       - 80:80
     env_file:
