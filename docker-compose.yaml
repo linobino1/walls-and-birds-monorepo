@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+
+  frontend:
+    container_name: frontend
+
+  backend:
+    container_name: backend
+    depends_on:
+      - backend_db
+
+  backend_db:
+    container_name: backend_db
+    image: mongo:latest
+    command:
+      - --storageEngine=wiredTiger
+
+  listmonk:
+    image: listmonk/listmonk:latest
+    container_name: listmonk
+    environment:
+      TZ: Etc/UTC
+    depends_on:
+      - listmonk_db
+
+  listmonk_db:
+    image: postgres:13
+    container_name: listmonk_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U listmonk"]
+      interval: 10s
+      timeout: 5s
+      retries: 6

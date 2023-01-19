@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="geo.region" content="DE-BE" />
+<meta name="geo.placename" content="Berlin" />
+<meta name="geo.position" content="52.514431;13.596943" />
+<meta name="ICBM" content="52.514431, 13.596943" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="Download the new Walls & Birds tape here. Berlin, 2015." />
+<meta name="keywords" content="Walls & Birds, walls, tape, download, christmas tape, 2015, weihnachtstape, weihnachten, kassette" />
+<link href="style.css" rel="stylesheet" type="text/css">
+<title>WALLS & BIRDS</title>
+<script src="webcam.js"></script>
+<script type="text/javascript">
+var toggle = -1;
+function toggletitle(val)
+{
+var speed = 4000;
+if(toggle < 1){
+	document.title = "WALLS & BIRDS";
+	timer = window.setTimeout("toggletitle("+toggle+")",speed);
+	toggle++;
+} else {
+	document.title = "WALLS & BIDRS";
+	timer = window.setTimeout("toggletitle("+toggle+")",speed);
+	toggle = 0;
+} 
+}
+toggletitle(0);
+</script>	
+</head>
+
+<body>
+<div class="wrapper">
+    <header class="header">
+         <a href="../index.html"><img alt="Walls & Birds" src="../img/title4.png" style="width:100%; transform:translateY(35%); -ms-transform:translateY(35%); -webkit-transform:translateY(35%);"></a>
+         <h1>Download an mp3 version of our new tape here</h1>
+    </header>
+   <br>
+    <h2>Instructions</h2>
+    <br>
+    <p>An mp3-Version of our new tape released in late 2015 is available here for all owners of the original tape. Verification works via webcam. Please allow your browser access to your webcam, take the your tape (only the case will do, too) and hold it with a distance of one ell in front of your webcam. Then click "verify". If succesful, download will start automatically. If not, try again.</p>
+	<br>
+	<div id=scanner>
+    <div id="cam" style="width: 320px; height: 240px;">
+		<script language="JavaScript">
+			Webcam.set({
+				width: 320,
+				height: 240,
+				dest_width: 640,
+				dest_height: 480,
+				image_format: 'jpeg',
+				jpeg_quality: 90,
+				flip_horiz: true
+			});
+			Webcam.on('live', function() {		
+					window.setTimeout(Webcam.snap(function(data_uri) { 		//gleich schiessen und spichern
+						Webcam.upload( data_uri, 'savefile.php', function(code, text) {});
+               		} ), 2000);								
+    		} );
+            Webcam.attach( '#cam' );
+            console.log("wc attached");
+        </script>
+    </div>    
+	<div id="progress">
+        <form>
+                <input type=button value="verify" onClick="verify()">
+        </form>
+    </div>
+    </div>
+        <!-- Code to handle taking the snapshot and displaying it locally -->
+		<script language="JavaScript">
+		    var toggler = 0;
+			var verificationDuration = 0;	//the timer for the verification process
+			
+            function verify() {
+                // take snapshot and get image data
+                console.log("button clicked");
+                Webcam.snap( function(data_uri) {
+                    // display results in page
+                    document.getElementById('cam').innerHTML = '<img style="height:240px;width:320px;" src="'+data_uri+'"/>';
+					Webcam.upload( data_uri, 'savefile.php', function(code, text) {
+							
+					});
+                } );
+                verficationDuration = setInterval(verifying, 150);	//verification process
+            }
+            
+            function verifying() {
+				console.log(toggler);
+                
+                if(toggler % 3 == 0) {
+                    toggler++;
+                    document.getElementById("progress").innerHTML = "Verifying...";
+                } else if(toggler % 3 == 1) {
+                    toggler++;
+                    document.getElementById("progress").innerHTML = "Vreiyifng...";
+                } else if(toggler % 3 == 2) {
+                    toggler++;
+                    document.getElementById("progress").innerHTML = "Virefynig...";
+                } 
+				if(toggler > 20) {		//duration of the verification process
+					console.log("verification over");
+                    document.getElementById("progress").innerHTML = "Verification succesful, download <a href='mp3/Walls_&_Birds_-_Daytona_Beach.zip' target='new'>here</a>.";
+                    clearInterval(verficationDuration);
+                }
+            
+            }
+        </script>
+        <script language="JavaScript">
+    
+            function verified() {
+                check = new Boolean(Math.random() < 1.5);
+                if (check) {
+                    document.getElementById("toggleVerifying").innerHTML = "sdf";	
+                }
+            }
+        </script>  
+<p id="toggleVerifying" style="position:relative;height:240px;width:320px;top:0px;"></p>
+</div>
+</body>
+</html>

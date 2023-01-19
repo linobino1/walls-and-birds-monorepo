@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<title>WALLS & BIRDS</title>
+	<meta name="keywords" content="Walls & Birds, walls, birds, tape, 2015, berlin, new, listen, play" />
+	<meta name="description" content="" />
+	<link href="style.css" rel="stylesheet">
+    <link href="ins-imgs.css" rel="stylesheet">
+    
+<script type="text/javascript">
+
+	document.addEventListener('play', function(e){
+		var audios = document.getElementsByTagName('audio');
+		for(var i = 0, len = audios.length; i < len;i++){
+			if(audios[i] != e.target){
+				audios[i].pause();
+			}
+		}
+	}, true);
+</script>
+
+<script type="text/javascript">
+	var toggle = -1;
+	function toggletitle(val)
+	{
+	var speed = 4000;
+	if(toggle < 1){
+		document.title = "WALLS & BIRDS";
+		timer = window.setTimeout("toggletitle("+toggle+")",speed);
+		toggle++;
+	} else {
+		document.title = "WALLS & BIDRS";
+		timer = window.setTimeout("toggletitle("+toggle+")",speed);
+		toggle = 0;
+	} 
+	}
+	toggletitle(0);
+</script>
+</head>
+<body>
+<div class="wrapper">
+	<header class="header">
+    	<a href="../index.html"><img alt="Walls & Birds" src="../img/title4.png" style="width:100%; transform:translateY(35%); -ms-transform:translateY(35%); -webkit-transform:translateY(35%);"></a>
+	</header><!-- .header-->
+	<main class="content">
+        <div id="tapedeck">
+        	<div id="gif">
+              <img src="../img/tape.gif" style="width:300px;height:auto;"/>
+            </div>
+            <div id="players">
+            <p>Side 1</p>
+                <audio controls id="playA" style="background-color:#000000;color:#FFFFFF;">
+                  <source src="../sound/tapeA.ogg" type="audio/ogg">
+                  <source src="../sound/tapeA.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+                </audio> 	
+                <p><br></p>
+                <p>Side 2</p>
+                <audio controls id="playB" style="background-color:#000000;color:#FFFFFF;">
+                  <source src="../sound/tapeB.ogg" type="audio/ogg">
+                  <source src="../sound/tapeB.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+                </audio>
+            </div>
+       </div>
+       <p style="margin-top:10px;">This is the latest release from late 2015. Older material at <a href="https://wallsandbirds.bandcamp.com/album/atlantic-bar" target="new">www.wallsandbirds.bandcamp.com</a> or <a href="http://www.soundcloud.com/wallsandbirds" target="new">www.soundcloud.com/wallsandbirds</a>.</p>
+     </main>
+    
+</div>
+
+</body>
+</html>

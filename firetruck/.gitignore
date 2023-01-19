@@ -1,0 +1,6 @@
+.DS_Store
+
+download/fotos/*
+download/mp3/*.zip
+sound/tape*.mp3
+info/vid/*.mp4
