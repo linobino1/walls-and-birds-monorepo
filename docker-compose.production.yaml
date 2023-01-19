@@ -60,6 +60,7 @@ services:
       - 80:9000
     networks:
       - listmonk
+      - net
     volumes:
       - ./listmonk/config.toml:/listmonk/config.toml
     environment:
@@ -121,10 +122,12 @@ services:
     build:
       context: ./firetruck
       dockerfile: Dockerfile
-    ports:
-      - 80:80
+    expose:
+      - 80
     env_file:
       - ./.env
+    networks:
+      - net
     environment:
       OLD_DB_HOST: old_db:3306
       OLD_DB_NAME:
