@@ -1,0 +1,26 @@
+/** this should be manually inserted in the listmonk UI at settings/appearance */
+html,
+body {
+  background: dodgerblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+.header {
+  border: 0;
+}
+.wrap {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+footer.container {
+  display: none;
+}
