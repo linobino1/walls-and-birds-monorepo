@@ -110,7 +110,7 @@ services:
     environment:
       NGINX_PROXY_CONTAINER: proxy
       DEFAULT_EMAIL: ${EMAIL_ADMIN}
-      ACME_CA_URI: https://acme-staging-v02.api.letsencrypt.org/directory # staging
+      # ACME_CA_URI: https://acme-staging-v02.api.letsencrypt.org/directory # staging
     volumes:
       - certs:/etc/nginx/certs:rw
       - acme:/etc/acme.sh
