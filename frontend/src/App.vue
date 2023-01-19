@@ -9,14 +9,13 @@ import { RouterLink, RouterView } from 'vue-router'
   <RouterView />
 
   <footer>
-    <RouterLink to="/imprint" class="no-link">Imprint</RouterLink>
+    <RouterLink to="/imprint" class="no-link">legal notice</RouterLink>
   </footer>
 </template>
 
 <style>
 #app {
-  background-color: dodgerblue;
-  background-color: rgb(30, 144, 255);
+  background-color: var(--color-theme);
   min-height: 100vh;
   width: 100%;
 }
