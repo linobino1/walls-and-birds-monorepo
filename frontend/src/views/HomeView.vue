@@ -55,8 +55,9 @@ function showOnClick(show) {
 
     <iframe class="old" src="https://wallsandbirds.com" width="300px" height="400px" />
 
-    <a href="https://wallsandbirds.bandcamp.com" target="_blank">releases</a>
-    <a href="https://www.youtube.com/@wallsandbirds" target="_blank">music videos</a>
+      <a href="https://wallsandbirds.bandcamp.com">albums</a>
+      <a href="https://www.youtube.com/@wallsandbirds" target="_blank">music videos</a>
+      <a href="https://soundcloud.com/wallsandbirds">outtakes</a>
     <NewsletterForm />
 
     <h2>live</h2>
@@ -110,6 +111,12 @@ a {
 }
 a:hover {
   text-decoration: underline;
+}
+.releases {
+  display: flex;
+  flex-direction: row;
+  column-gap: .5rem;
+  align-items: center;
 }
 ul.shows {
   display: flex;
