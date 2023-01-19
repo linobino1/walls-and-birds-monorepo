@@ -1,22 +1,51 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import NewsletterForm from '../components/NewsletterForm.vue';
+import apollo from '../apollo.js';
+import gql from 'graphql-tag';
+import format from 'date-fns/format';
+import { enUS } from 'date-fns/esm/locale';
 
-const colors = [
-  'darkgreen',
-  'darkgrey',
-  'yellow',
-  'thistle',
-];
-const main = ref(null);
-let i = 0;
-window.setInterval(() => {
-  if (main.value) {
-    main.value.style.color = colors[i];
-  }
-  i++;
-  i %= colors.length;
-}, 6000);
+// const colors = [
+//   'darkgreen',
+//   'darkgrey',
+//   'thistle',
+// ];
+// const main = ref(null);
+// let i = 0;
+// window.setInterval(() => {
+//   if (main.value) {
+//     main.value.style.color = colors[i];
+//   }
+//   i++;
+//   i %= colors.length;
+// }, 6000);
+
+// Shows
+const shows = ref([]);
+apollo.query({
+  query: gql` 
+    query upcomingShows {
+      Shows {
+        docs {
+          date
+          location
+          link
+        }
+      }
+    }
+  `,
+})
+.then((res) => {
+  shows.value = res.data.Shows.docs;
+})
+.catch((err) => {
+
+});
+function showOnClick(show) {
+  if (!show.link) return;
+  window.open(show.link, '_blank');
+}
 </script>
 
 <template>
@@ -32,9 +61,17 @@ window.setInterval(() => {
 
     <h2>live</h2>
     <ul class="shows">
-      <li>Jan 25th Berlin Hanseat</li>
-      <li>Jun 25th Music in The Meadows</li>
-      <li>...</li>
+      <template v-if="shows.length">
+        <li
+          v-for="show in shows"
+          :key="show"
+          @click="showOnClick(show)"
+          :class="show.link && 'clickable'"
+        >
+        {{ format(new Date(show.date), 'PP', { locale: enUS }) }} | {{ show.location }}
+        </li>
+      </template>
+      <li v-else>no upcoming shows</li>
     </ul>
     
   </main>
@@ -49,22 +86,17 @@ main {
   min-height: 100vh;
   row-gap: 1rem;
   font-size: 2rem;
-  padding-top: 16vh;
   transition: color 4s;
-  /* background-image: url('/src/assets/img/blueridge.jpg');
-  background-position: center;
-  background-size: cover; */
-}
-main > *:hover {
-  z-index: 1;
+  font-size: 2rem;
 }
 h1 {
   font-size: 4rem;
   font-family: 'Cooper', serif;
   color: #fff;
+  cursor: none;
 }
 h2 {
-  font-size: 2rem;
+  font-size: inherit;
   font-weight: normal;
   text-decoration: underline;
   margin-top: 8rem;
@@ -75,7 +107,6 @@ a:active,
 a {
   color: inherit;
   text-decoration: none;
-  font-size: 2rem;
 }
 a:hover {
   text-decoration: underline;
@@ -88,11 +119,33 @@ ul.shows {
   list-style: none;
   padding: 0;
   margin: 0;
+  z-index: 1;
+}
+ul.shows li {
+  background-color: var(--color-theme);
 }
 .old {
   position: absolute;
   right: 10%;
   top: 70%;
   transform: rotate3d(1, 1, 1, -45deg);
+}
+
+.clickable:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  main {
+    font-size: 1.5rem;
+  }
+  h1 {
+    font-size: 13vw;
+    font-size: min(4rem, 13vw);
+  }
+  .old {
+    top: 93%;
+  }
 }
 </style>

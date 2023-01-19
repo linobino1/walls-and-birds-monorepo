@@ -3,6 +3,9 @@
   src: url('/src/assets/fonts/CooperBlackStd.otf'); 
 }
 
+:root {
+  --color-theme: rgb(30, 144, 255);  /* dodgerblue */
+}
 * {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
