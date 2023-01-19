@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'Cooper';
+  src: url('/src/assets/fonts/CooperBlackStd.otf'); 
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+html {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  transition: 0.4s;
+}

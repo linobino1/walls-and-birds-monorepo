@@ -1,0 +1,91 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+
+// Dealing with Input width
+const widthMachine = ref(null);
+const input = ref(null);
+
+function resize() {
+  widthMachine.value.innerHTML = input.value.value || 'email*';
+}
+</script>
+
+<template>
+  <form method="post" action="http://localhost:9000/subscription/form">
+    <h3>newsletter:</h3>
+    <input type="hidden" name="nonce" />
+    <input id="147a9" type="hidden" name="l" checked value="147a969b-dfd7-4375-8387-b3fbc700b84b" />
+
+    <div class="controls">
+      <span id="autowidth">
+        <span ref="widthMachine" aria-hidden="true">email*</span>
+        <input ref="input" @input="resize()" type="email" name="email" required placeholder="email*" />
+      </span>
+      <!-- <input type="text" name="name" placeholder="name" /> -->
+      <button type="submit" value="Subscribe" title="subscribe">&crarr;</button>
+    </div>
+  </form>
+</template>
+
+<style scoped>
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  row-gap: 1rem;
+  column-gap: 1rem;
+}
+h3 {
+  font-size: inherit;
+  font-weight: normal;
+  line-height: inherit;
+  margin: 0;
+}
+input {
+  appearance: none;
+  border: 0;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  border-bottom: 1px solid;
+}
+input,
+button {
+  margin: 0;
+  border: 0;
+  height: 3rem;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+}
+input::placeholder {
+  color: inherit;
+}
+input:active,
+input:focus {
+  border: 1px solid;
+}
+button:hover {
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+/** auto resize input */
+#autowidth {
+  position: relative;
+}
+#autowidth input {
+  position: absolute !important;
+  width: 100% !important;
+  left: 0;
+}
+#autowidth span {
+  /*   Sort of a magic number to add extra space for number spinner */
+  padding: 0 1rem;
+  visibility: hidden;
+}
+</style>
