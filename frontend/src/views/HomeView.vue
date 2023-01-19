@@ -5,17 +5,17 @@ import NewsletterForm from '../components/NewsletterForm.vue';
 const colors = [
   'darkgreen',
   'darkgrey',
-  'darkgoldenred',
+  'yellow',
   'thistle',
 ];
 const main = ref(null);
 let i = 0;
 window.setInterval(() => {
-  i = (i + 1 ) % colors.length;
-
   if (main.value) {
     main.value.style.color = colors[i];
   }
+  i++;
+  i %= colors.length;
 }, 6000);
 </script>
 

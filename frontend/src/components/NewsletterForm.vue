@@ -57,16 +57,20 @@ button {
   margin: 0;
   border: 0;
   height: 3rem;
-  background: transparent;
+  background: transparent !important;
   color: inherit;
   font-size: inherit;
+  border-radius: 5px;
 }
 input::placeholder {
   color: inherit;
 }
 input:active,
+input:focus-visible,
 input:focus {
-  border: 1px solid;
+  border: 0;
+  outline: 2px solid white;
+  box-shadow: 0;
 }
 button:hover {
   background-color: #000;
