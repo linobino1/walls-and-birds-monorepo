@@ -4,7 +4,7 @@ import Users from './collections/Users';
 import Shows from './collections/Shows';
 
 export default buildConfig({
-  serverURL: 'http://localhost:3000',
+  serverURL: process.env.PAYLOAD_PUBLIC_HOST_BACKEND || 'http://localhost:3000',
   cors: [
     'http://localhost:5173',
   ],
