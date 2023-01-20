@@ -46,6 +46,7 @@ services:
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
       VIRTUAL_HOST: ${DOMAIN_BACKEND}
       LETSENCRYPT_HOST: ${DOMAIN_BACKEND}
+      LETSENCRYPT_TEST: 'true'
       MONGODB_URI: mongodb://backend_db:27017/backend
     restart: always
 
@@ -67,6 +68,7 @@ services:
     environment:
       VIRTUAL_HOST: ${DOMAIN_NEWSLETTER}
       LETSENCRYPT_HOST: ${DOMAIN_NEWSLETTER}
+      LETSENCRYPT_TEST: 'true'
     restart: always
 
   listmonk_db:
