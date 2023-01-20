@@ -28,7 +28,7 @@ body {
 	margin:0;
 	padding:0;
 	font-family:Verdana, Helvetica, Arial, sans-serif;
-	background: url('/vid/1.jpg') #000 no-repeat center center fixed; 
+	background: url('/styles/vid/1.jpg') #000 no-repeat center center fixed; 
 		-webkit-background-size: cover;
     	-moz-background-size: cover;
     	-o-background-size: cover;
@@ -274,7 +274,7 @@ video::media-controls {
 @media screen and (max-device-width: 960px) 
 {
 body { 
-	background: url(vid/dt1.jpg) #000 no-repeat center center fixed; 
+	background: url('/styles/vid/1.jpg') #000 no-repeat center center fixed; 
 	-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
