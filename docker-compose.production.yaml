@@ -20,7 +20,7 @@ services:
       VIRTUAL_HOST: ${DOMAIN_FRONTEND}
       LETSENCRYPT_HOST: ${DOMAIN_FRONTEND}
       LETSENCRYPT_TEST: 'true'
-      VITE_MAILING_LIST_ID: cf2a3ab9-e4cb-4f83-9221-a040736f9172
+      VITE_MAILING_LIST_ID: ${NEWSLETTER_LIST_ID}
     restart: always
 
   backend:
