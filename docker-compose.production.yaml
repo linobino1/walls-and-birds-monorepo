@@ -19,7 +19,7 @@ services:
       VITE_HOST_BACKEND: https://${DOMAIN_BACKEND}
       VIRTUAL_HOST: ${DOMAIN_FRONTEND}
       LETSENCRYPT_HOST: ${DOMAIN_FRONTEND}
-      LETSENCRYPT_EMAIL: ${EMAIL_ADMIN}
+      LETSENCRYPT_TEST: 'true'
       VITE_MAILING_LIST_ID: cf2a3ab9-e4cb-4f83-9221-a040736f9172
     restart: always
 
@@ -46,7 +46,6 @@ services:
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
       VIRTUAL_HOST: ${DOMAIN_BACKEND}
       LETSENCRYPT_HOST: ${DOMAIN_BACKEND}
-      LETSENCRYPT_EMAIL: ${EMAIL_ADMIN}
       MONGODB_URI: mongodb://backend_db:27017/backend
     restart: always
 
@@ -68,7 +67,6 @@ services:
     environment:
       VIRTUAL_HOST: ${DOMAIN_NEWSLETTER}
       LETSENCRYPT_HOST: ${DOMAIN_NEWSLETTER}
-      LETSENCRYPT_EMAIL: ${EMAIL_ADMIN}
     restart: always
 
   listmonk_db:
@@ -138,7 +136,6 @@ services:
       OLD_DB_PASS:
       VIRTUAL_HOST: ${DOMAIN_FIRETRUCK}
       LETSENCRYPT_HOST: ${DOMAIN_FIRETRUCK}
-      LETSENCRYPT_EMAIL: ${EMAIL_ADMIN}
     volumes:
       - ./firetruck/:/var/www/html/
   
