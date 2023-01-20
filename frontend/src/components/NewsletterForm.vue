@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const formUrl = import.meta.env.MAILING_LIST_FORM_URL;
-const listId = import.meta.env.MAILING_LIST_ID;
+const formUrl = import.meta.env.VITE_MAILING_LIST_FORM_URL;
+const listId = import.meta.env.VITE_MAILING_LIST_ID;
 
 // Dealing with Input width
 const widthMachine = ref(null);
