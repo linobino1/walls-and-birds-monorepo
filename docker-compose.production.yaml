@@ -67,6 +67,8 @@ services:
     environment:
       VIRTUAL_HOST: ${DOMAIN_NEWSLETTER}
       LETSENCRYPT_HOST: ${DOMAIN_NEWSLETTER}
+      LISTMONK_app__admin_username: ${LISTMONK_USERNAME}
+      LISTMONK_app__admin_password: ${LISTMONK_PASSWORD}
     restart: always
 
   listmonk_db:
@@ -79,9 +81,9 @@ services:
         source: listmonk-data
         target: /var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=listmonk
-      - POSTGRES_USER=listmonk
-      - POSTGRES_DB=listmonk
+      POSTGRES_PASSWORD: listmonk
+      POSTGRES_USER: listmonk
+      POSTGRES_DB: listmonk
     restart: always
 
   proxy:
