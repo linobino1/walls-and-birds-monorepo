@@ -135,6 +135,9 @@ services:
       OLD_DB_NAME:
       OLD_DB_USER:
       OLD_DB_PASS:
+      VIRTUAL_HOST: ${DOMAIN_FIRETRUCK}
+      LETSENCRYPT_HOST: ${DOMAIN_FIRETRUCK}
+      LETSENCRYPT_EMAIL: ${EMAIL_ADMIN}
     volumes:
       - ./firetruck/:/var/www/html/
   
@@ -150,9 +153,6 @@ services:
       MYSQL_DATABASE: ${OLD_DB_NAME}
       MYSQL_USER: ${OLD_DB_USER}
       MYSQL_PASSWORD: ${OLD_DB_PASS}
-      VIRTUAL_HOST: ${DOMAIN_FIRETRUCK}
-      LETSENCRYPT_HOST: ${DOMAIN_FIRETRUCK}
-      LETSENCRYPT_EMAIL: ${EMAIL_ADMIN}
     expose:
       - 3306
 
