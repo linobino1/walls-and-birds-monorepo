@@ -139,7 +139,7 @@ services:
       VIRTUAL_HOST: ${DOMAIN_FIRETRUCK}
       LETSENCRYPT_HOST: ${DOMAIN_FIRETRUCK}
     volumes:
-      - ./firetruck:/var/www/html/
+      - ./firetruck:/var/www/html
   
   old_db:
     ports:
@@ -154,7 +154,7 @@ services:
       - default
     volumes:
       - old_db_data:/var/lib/mysql
-      - ./old_db:/share/
+      - ./old_db:/share
     environment:
       MYSQL_ROOT_PASSWORD: ${OLD_DB_ROOT_PASS}
       MYSQL_DATABASE: ${OLD_DB_NAME}
