@@ -19,6 +19,7 @@ services:
       VITE_HOST_BACKEND: https://${DOMAIN_BACKEND}
       VIRTUAL_HOST: ${DOMAIN_FRONTEND}
       LETSENCRYPT_HOST: ${DOMAIN_FRONTEND}
+      VITE_MAILING_LIST_FORM_URL: https://${DOMAIN_NEWSLETTER}/subscription/form
       VITE_MAILING_LIST_ID: ${NEWSLETTER_LIST_ID}
     restart: always
 

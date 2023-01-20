@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, inject } from 'vue';
 
+const MAILING_LIST_FORM_URL = inject('MAILING_LIST_FORM_URL');
 const MAILING_LIST_ID = inject('MAILING_LIST_ID');
 
 // Dealing with Input width
@@ -13,7 +14,7 @@ function resize() {
 </script>
 
 <template>
-  <form method="post" action="http://localhost:9000/subscription/form">
+  <form method="post" :action="MAILING_LIST_FORM_URL">
     <h3>newsletter:</h3>
     <input type="hidden" name="nonce" />
     <input id="147a9" type="hidden" name="l" checked :value="MAILING_LIST_ID" />
