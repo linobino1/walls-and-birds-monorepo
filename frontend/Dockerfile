@@ -10,6 +10,8 @@ COPY package*.json .
 
 RUN npm install
 
+RUN chown -R node /home/node/node_modules
+
 COPY . .
 
 RUN npm run build
