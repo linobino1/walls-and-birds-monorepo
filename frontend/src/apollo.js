@@ -1,6 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client/core';
 
-const apiHost = import.meta.env.VITE_HOST_API ?? 'http://localhost:3000';
+const apiHost = import.meta.env.VITE_HOST_BACKEND ?? 'http://localhost:3000';
 const cache = new InMemoryCache({
   addTypename: false,
 });
