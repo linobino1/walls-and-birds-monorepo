@@ -120,7 +120,6 @@ services:
       - old_db
     build:
       context: ./firetruck
-      dockerfile: Dockerfile
     expose:
       - 80
     env_file:
