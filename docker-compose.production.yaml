@@ -154,6 +154,7 @@ services:
     networks:
       - default
     volumes:
+      - old_db_data:/var/lib/mysql
       - ./old_db/:/share/
     environment:
       MYSQL_ROOT_PASSWORD: ${OLD_DB_ROOT_PASS}
