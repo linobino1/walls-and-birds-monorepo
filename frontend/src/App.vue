@@ -15,7 +15,8 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <style>
 #app {
-  background-color: var(--color-theme);
+  background-color: #000;
+  color: #fff;
   min-height: 100vh;
   width: 100%;
 }

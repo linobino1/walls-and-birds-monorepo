@@ -91,7 +91,7 @@ main {
   font-size: 2rem;
 }
 h1 {
-  font-size: 4rem;
+  font-size: 6rem;
   font-family: 'Cooper', serif;
   color: #fff;
   cursor: none;
@@ -129,7 +129,7 @@ ul.shows {
   z-index: 1;
 }
 ul.shows li {
-  background-color: var(--color-theme);
+  background-color: #000;
 }
 .old {
   position: absolute;
