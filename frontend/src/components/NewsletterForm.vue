@@ -4,6 +4,8 @@ import { ref } from 'vue';
 const formUrl = import.meta.env.VITE_MAILING_LIST_FORM_URL;
 const listId = import.meta.env.VITE_MAILING_LIST_ID;
 
+console.log('NewsletterForm.vue', import.meta.env);
+
 // Dealing with Input width
 const widthMachine = ref(null);
 const input = ref(null);
