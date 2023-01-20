@@ -22,7 +22,7 @@ docker compose -f docker-compose.ymal -f docker-compose.development.yaml up -d l
 
 initialize listmonks database:
 ```
-docker compose run --rm listmonk ./listmonk --install
+docker compose -f docker-compose.yaml -f docker-compose.development.yaml run --rm listmonk ./listmonk --install
 ```
 
 start all services:
@@ -46,7 +46,7 @@ docker compose run --rm listmonk ./listmonk --install
 
 Run all services:
 ```
-docker compose -f docker-compose.ymal -f docker-compose.production.yaml up -d
+docker compose -f docker-compose.yaml -f docker-compose.production.yaml run --rm listmonk ./listmonk --install
 ```
 
 ## Migration
