@@ -6,21 +6,6 @@ import gql from 'graphql-tag';
 import format from 'date-fns/format';
 import { enUS } from 'date-fns/esm/locale';
 
-// const colors = [
-//   'darkgreen',
-//   'darkgrey',
-//   'thistle',
-// ];
-// const main = ref(null);
-// let i = 0;
-// window.setInterval(() => {
-//   if (main.value) {
-//     main.value.style.color = colors[i];
-//   }
-//   i++;
-//   i %= colors.length;
-// }, 6000);
-
 // Shows
 const shows = ref([]);
 apollo.query({
@@ -39,9 +24,8 @@ apollo.query({
 .then((res) => {
   shows.value = res.data.Shows.docs;
 })
-.catch((err) => {
+.catch(() => {});
 
-});
 function showOnClick(show) {
   if (!show.link) return;
   window.open(show.link, '_blank');
@@ -55,10 +39,13 @@ function showOnClick(show) {
 
     <iframe class="old" src="https://wallsandbirds.com" width="300px" height="400px" />
 
-      <a href="https://wallsandbirds.bandcamp.com">albums</a>
-      <a href="https://www.youtube.com/@wallsandbirds" target="_blank">music videos</a>
-      <a href="https://soundcloud.com/wallsandbirds">outtakes</a>
+    <a href="https://wallsandbirds.bandcamp.com">albums</a>
+    <a href="https://www.youtube.com/@wallsandbirds" target="_blank">music videos</a>
+    <a href="https://soundcloud.com/wallsandbirds">outtakes</a>
+
     <NewsletterForm />
+
+    <hr />
 
     <h2>live</h2>
     <ul class="shows">
@@ -75,6 +62,10 @@ function showOnClick(show) {
       <li v-else>no upcoming shows</li>
     </ul>
     
+    <hr />
+
+    <a href="mailto:judy@wallsandbirds.com">contact</a>
+
   </main>
 </template>
 
@@ -89,6 +80,8 @@ main {
   font-size: 2rem;
   transition: color 4s;
   font-size: 2rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 h1 {
   font-size: 6rem;
@@ -100,7 +93,13 @@ h2 {
   font-size: inherit;
   font-weight: normal;
   text-decoration: underline;
-  margin-top: 8rem;
+  margin: 0;
+  margin-bottom: .5em;
+}
+main > hr {
+  width: 0;
+  border: 0;
+  margin: 2rem 0;
 }
 a:visited,
 a:hover,
@@ -146,6 +145,7 @@ ul.shows li {
 @media (max-width: 768px) {
   main {
     font-size: 1.5rem;
+    padding-top: 0;
   }
   h1 {
     font-size: 13vw;

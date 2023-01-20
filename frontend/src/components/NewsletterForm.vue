@@ -65,7 +65,6 @@ button {
   background: transparent !important;
   color: inherit;
   font-size: inherit;
-  border-radius: 5px;
 }
 input::placeholder {
   color: inherit;
@@ -78,8 +77,9 @@ input:focus {
   box-shadow: 0;
 }
 button:hover {
-  background-color: #000;
-  color: #fff;
+  background: #fff !important;
+  outline: 2px solid white;
+  color: #000;
   cursor: pointer;
 }
 

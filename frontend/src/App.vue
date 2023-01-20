@@ -21,7 +21,12 @@ import { RouterLink, RouterView } from 'vue-router'
   width: 100%;
 }
 footer {
+  position: relative;
   text-align: right;
+  z-index: 1;
+}
+footer > * {
+  background: #000;
 }
 .no-link {
   text-decoration: none !important;
