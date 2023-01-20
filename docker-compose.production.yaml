@@ -143,8 +143,8 @@ services:
       - ./firetruck/:/var/www/html/
   
   old_db:
-    # ports:
-    #   - 3306:3306
+    ports:
+      - 3306:3306
     expose:
       - 3306
     container_name: old_db
