@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build
 
 # production stage
-FROM nginx:stable-alpine as production-stage
+FROM nginx:latest as production-stage
 
 # overwrite default nginx configuration
 COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
