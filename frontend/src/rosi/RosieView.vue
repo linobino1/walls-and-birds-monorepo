@@ -89,7 +89,7 @@ main {
   color: var(--fg);
   transition: transform .5s;
   /* max-width: 45vw; */
-  text-align: left;
+  text-align: center;
   width: 90vw;
   white-space: pre-wrap;
 }
