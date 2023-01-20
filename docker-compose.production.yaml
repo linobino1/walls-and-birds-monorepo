@@ -137,6 +137,7 @@ services:
       LETSENCRYPT_HOST: ${DOMAIN_FIRETRUCK}
     volumes:
       - ./firetruck:/var/www/html
+    restart: always
   
   old_db:
     ports:
@@ -157,6 +158,7 @@ services:
       MYSQL_DATABASE: ${OLD_DB_NAME}
       MYSQL_USER: ${OLD_DB_USER}
       MYSQL_PASSWORD: ${OLD_DB_PASS}
+    restart: always
 
 volumes:
   mongo-data:
