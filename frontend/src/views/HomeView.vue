@@ -37,7 +37,6 @@ function showOnClick(show) {
 
     <h1>Walls & Birds</h1>
 
-    <iframe class="old" src="https://wallsandbirds.com" width="300px" height="400px" />
 
     <a href="https://wallsandbirds.bandcamp.com">albums</a>
     <a href="https://www.youtube.com/@wallsandbirds" target="_blank">music videos</a>
@@ -67,9 +66,20 @@ function showOnClick(show) {
     <a href="mailto:judy@wallsandbirds.com">contact</a>
 
   </main>
+  <iframe class="old" src="https://wallsandbirds.com" width="300px" height="400px" />
 </template>
 
 <style scoped>
+iframe.old {
+  position: absolute;
+  right: 10%;
+  top: 70%;
+  transform: rotate3d(1, 1, 1, -45deg);
+}
+main > * {
+  z-index: 1;
+  background-color: #000;
+}
 main {
   display: flex;
   flex-direction: column;
@@ -82,6 +92,7 @@ main {
   font-size: 2rem;
   padding-top: 4rem;
   padding-bottom: 4rem;
+  text-align: center;
 }
 h1 {
   font-size: 6rem;
@@ -127,16 +138,6 @@ ul.shows {
   margin: 0;
   z-index: 1;
 }
-ul.shows li {
-  background-color: #000;
-}
-.old {
-  position: absolute;
-  right: 10%;
-  top: 70%;
-  transform: rotate3d(1, 1, 1, -45deg);
-}
-
 .clickable:hover {
   text-decoration: underline;
   cursor: pointer;
@@ -148,11 +149,13 @@ ul.shows li {
     padding-top: 0;
   }
   h1 {
-    font-size: 13vw;
-    font-size: min(4rem, 13vw);
+    font-size: 12vw;
+    font-size: min(4rem, 12vw);
   }
-  .old {
+  iframe.old {
     top: 93%;
+    right: -20%;
+    transform: rotate3d(1, 1, 1, -45deg) scale(.5);
   }
 }
 </style>

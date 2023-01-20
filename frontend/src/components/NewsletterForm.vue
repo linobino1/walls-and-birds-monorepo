@@ -39,6 +39,8 @@ form {
   align-items: center;
   row-gap: 1rem;
   column-gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 h3 {
   font-size: inherit;
@@ -61,7 +63,7 @@ input,
 button {
   margin: 0;
   border: 0;
-  height: 3rem;
+  height: 2.6rem;
   background: transparent !important;
   color: inherit;
   font-size: inherit;
