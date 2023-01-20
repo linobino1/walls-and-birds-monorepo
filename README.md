@@ -48,3 +48,22 @@ Run all services:
 ```
 docker compose -f docker-compose.ymal -f docker-compose.production.yaml up -d
 ```
+
+## Migration
+
+### Old Websites Concerts data
+
+Import the old data to the `old_db` mysql database.
+
+```
+# terminal in the mysql container
+docker exec -it old_db sh
+
+# log into mysql as root
+mysql -u root -p
+
+# load backup
+> create database Shows;
+> use Shows;
+> source /share/DB2613259-2023-01-20.sql 
+```
