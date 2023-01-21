@@ -5,8 +5,8 @@ import rawTexts from './texts.js';
 const texts = [];
 rawTexts.forEach((text) => texts.push({
   text,
+  top: Math.random() * 100,
   left: Math.random() * 100,
-  right: Math.random() * 100,
 }));
 
 let index = 0;
@@ -33,7 +33,7 @@ function anyClick() {
     activateNode(texts[index]);
   } else {
     deactivateNode(texts[index]);
-    index++;
+    if (index < texts.length - 1) index++;
   }
 }
 function activateNode(node) {
@@ -53,7 +53,7 @@ function deactivateNode(node) {
         v-for="text in texts"
         :key="text"
         :id="text.text"
-        :style="'transform: translate(' + text.left + 'vw,' + text.right + 'vw) scaleX(.1);'"
+        :style="'transform: translate(' + text.left + 'vw,' + text.top + 'vh) scaleX(.1);'"
         class="node"
         @click="nodeOnClick(text)"
       >{{ text.text }}</div>
