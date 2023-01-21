@@ -58,6 +58,8 @@ input {
   flex-direction: row;
   width: fit-content;
   border-bottom: 1px solid;
+  max-width: 90vw;
+  overflow-x: auto;
 }
 input,
 button {
