@@ -26,3 +26,10 @@ a {
   text-decoration: none;
   transition: 0.4s;
 }
+@media (max-width: 768px) {
+  html,
+  body {
+    /* prevent iOs horiz scroll */
+    position: relative;
+  }
+}
