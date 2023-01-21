@@ -66,7 +66,7 @@ function showOnClick(show) {
     <a href="mailto:judy@wallsandbirds.com">contact</a>
 
   </main>
-  <iframe class="old" src="https://wallsandbirds.com" width="300px" height="400px" />
+  <iframe class="old" src="https://firetruck.wallsandbirds.com" width="300px" height="400px" />
 </template>
 
 <style scoped>
