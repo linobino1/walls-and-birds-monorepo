@@ -67,6 +67,7 @@ services:
       - net
     volumes:
       - ./listmonk/config.toml:/listmonk/config.toml
+      - ./listmonk_uploads:/listmonk/uploads
     environment:
       VIRTUAL_HOST: ${DOMAIN_NEWSLETTER}
       LETSENCRYPT_HOST: ${DOMAIN_NEWSLETTER}
