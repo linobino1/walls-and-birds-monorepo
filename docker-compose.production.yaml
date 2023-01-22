@@ -73,6 +73,7 @@ services:
       LETSENCRYPT_HOST: ${DOMAIN_NEWSLETTER}
       LISTMONK_app__admin_username: ${LISTMONK_USER}
       LISTMONK_app__admin_password: ${LISTMONK_PASS}
+      LISTMONK_app__email_format: both
     restart: always
 
   listmonk_db:
