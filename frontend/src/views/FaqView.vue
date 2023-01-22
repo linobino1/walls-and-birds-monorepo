@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import rawTexts from './texts.js';
+import rawTexts from '../faq.js';
 
 const texts = [];
 rawTexts.forEach((text) => texts.push({
@@ -14,11 +14,9 @@ let active = false;
 
 // set color
 const invert = ref(null);
-let inverted = false;
 document.addEventListener('keydown', (event) => {
   if (event.code == 'KeyI') {
-    inverted = !inverted;
-    invert.value.style.display = inverted ? 'block' : 'none';
+    invert.value.classList.toggle('show');
   }
 });
 
@@ -56,18 +54,14 @@ function deactivateNode(node) {
         :style="'transform: translate(' + text.left + 'vw,' + text.top + 'vh) scaleX(.1);'"
         class="node"
         @click="nodeOnClick(text)"
-      >{{ text.text }}</div>
+      >
+        <div class="content">{{ text.text }}</div>
+      </div>
     </div>
     <div ref="invert" class="invert" />
   </main>
 </template>
 
-<style>
-:root {
-  --bg: #000;
-  --fg: #fff;
-}
-</style>
 <style scoped>
 main {
   position: fixed;
@@ -75,7 +69,7 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--bg);
+  background: #000;
   z-index: 100;
 }
 .wrapper {
@@ -86,7 +80,7 @@ main {
 .node {
   font-size: 0.21rem;
   position: absolute;
-  color: var(--fg);
+  color: #fff;
   transition: transform .5s;
   /* max-width: 45vw; */
   text-align: center;
@@ -97,9 +91,16 @@ main {
   font-size: 1.5rem;
   transform: translate(50vw, 50vh) scale(1) !important;
   z-index: 1000;
-  background: var(--bg);
+}
+.node .content {
+  display: inline;
+  transition: background-color .5s step-end;
+}
+.node.active .content {
+  background-color: #000;
 }
 .invert {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -107,5 +108,8 @@ main {
   bottom: 0;
   z-index: 100000;
   backdrop-filter: invert(1);
+}
+.invert.show {
+  display: block;
 }
 </style>

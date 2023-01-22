@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { RouterLink } from 'vue-router';
 import NewsletterForm from '../components/NewsletterForm.vue';
 import apollo from '../apollo.js';
 import gql from 'graphql-tag';
@@ -64,6 +65,8 @@ function showOnClick(show) {
     <hr />
 
     <a href="mailto:judy@wallsandbirds.com">contact</a>
+
+    <RouterLink :to="{ name: 'faq' }">faq</RouterLink>
 
   </main>
   <iframe class="old" src="https://firetruck.wallsandbirds.com" width="300px" height="400px" />
