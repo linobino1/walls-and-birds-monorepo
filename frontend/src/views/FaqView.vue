@@ -112,4 +112,10 @@ main {
 .invert.show {
   display: block;
 }
+@media (max-width: 768px) {
+  .node:not(.active) {
+    font-size: 3px;
+  }
+  
+}
 </style>
