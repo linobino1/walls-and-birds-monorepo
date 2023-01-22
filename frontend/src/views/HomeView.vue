@@ -73,6 +73,9 @@ function showOnClick(show) {
 </template>
 
 <style scoped>
+.spacer {
+  height: 10rem;
+}
 iframe.old {
   position: fixed;
   right: 10%;
@@ -156,10 +159,10 @@ ul.shows {
     font-size: min(4rem, 12vw);
   }
   iframe.old {
-    position: absolute;
+    position: relative;
     top: 67%;
-    right: -3%;
-    transform: rotate3d(1, 1, 1, -45deg) scale(.5);
+    right: -13%;
+    height: 10rem;
   }
 }
 </style>
