@@ -17,7 +17,7 @@ const router = createRouter({
       component: ImprintView,
     },
     {
-      path: '/faw',
+      path: '/faq',
       name: 'faq',
       component: FaqView,
     },
