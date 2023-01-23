@@ -19,8 +19,8 @@ services:
     environment:
       NODE_ENV:
       VITE_HOST_BACKEND: https://${DOMAIN_BACKEND}
-      VIRTUAL_HOST: ${DOMAIN_FRONTEND}, www.${DOMAIN_FRONTEND}
-      LETSENCRYPT_HOST: ${DOMAIN_FRONTEND}, www.${DOMAIN_FRONTEND}
+      VIRTUAL_HOST: ${DOMAIN_FRONTEND}
+      LETSENCRYPT_HOST: ${DOMAIN_FRONTEND}
       VITE_MAILING_LIST_FORM_URL: https://${DOMAIN_NEWSLETTER}/subscription/form
       VITE_MAILING_LIST_ID: ${NEWSLETTER_LIST_ID}
     restart: always
@@ -38,7 +38,7 @@ services:
       context: ./backend
       args:
         PAYLOAD_PUBLIC_SERVER_URL: https://${DOMAIN_BACKEND}
-        PAYLOAD_PUBLIC_CORS: https://${DOMAIN_FRONTEND}, https://www.${DOMAIN_FRONTEND}
+        PAYLOAD_PUBLIC_CORS: https://${DOMAIN_FRONTEND}
         MEDIA_DIR: /media
     environment:
       NODE_ENV:
@@ -106,6 +106,16 @@ services:
       - 80:80
       - 443:443
     restart: always
+
+  # redirect www (http/https) -> non-www (https)
+  redirect:
+    image: adamkdean/redirect
+    environment:
+      VIRTUAL_HOST: www.${DOMAIN_FRONTEND}
+      LETSENCRYPT_HOST: www.${DOMAIN_FRONTEND}
+      REDIRECT_LOCATION: https://${DOMAIN_FRONTEND}
+      REDIRECT_STATUS_CODE: 307
+      PRESERVE_URL: true
   
   certbot:
     image: nginxproxy/acme-companion
