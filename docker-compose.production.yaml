@@ -119,6 +119,7 @@ services:
       REDIRECT_LOCATION: https://${DOMAIN_FRONTEND}
       REDIRECT_STATUS_CODE: 301
       PRESERVE_URL: true
+    restart: always
   
   certbot:
     image: nginxproxy/acme-companion
