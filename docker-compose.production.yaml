@@ -109,7 +109,10 @@ services:
 
   # redirect www (http/https) -> non-www (https)
   redirect:
+    container_name: redirect
     image: adamkdean/redirect
+    networks:
+      - net
     environment:
       VIRTUAL_HOST: www.${DOMAIN_FRONTEND}
       LETSENCRYPT_HOST: www.${DOMAIN_FRONTEND}
