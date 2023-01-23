@@ -68,19 +68,14 @@ function showOnClick(show) {
 
     <RouterLink :to="{ name: 'faq' }">faq</RouterLink>
 
+    <iframe class="old" src="https://firetruck.wallsandbirds.com" width="300px" height="400px" />
+
   </main>
-  <iframe class="old" src="https://firetruck.wallsandbirds.com" width="300px" height="400px" />
 </template>
 
 <style scoped>
 .spacer {
   height: 10rem;
-}
-iframe.old {
-  position: fixed;
-  right: 10%;
-  top: 70%;
-  transform: rotate3d(1, 1, 1, -45deg);
 }
 main > * {
   z-index: 1;
@@ -97,7 +92,6 @@ main {
   transition: color 4s;
   font-size: 2rem;
   padding-top: 4rem;
-  padding-bottom: 4rem;
   text-align: center;
 }
 h1 {
@@ -148,7 +142,24 @@ ul.shows {
   text-decoration: underline;
   cursor: pointer;
 }
-
+iframe.old {
+  position: relative;
+  margin-top: 2rem;
+  left: 10%;
+  transform: rotate3d(1, 1, 1, -45deg);
+  z-index: 0;
+}
+@media (min-width: 1024px) {
+  iframe.old {
+    position: relative;
+    margin-top: -8rem;
+    left: -9%;
+    transform: rotate3d(1, 1, 1, -45deg);
+    z-index: 0;
+    /* justify-self: end; */
+    align-self: end;
+  }
+}
 @media (max-width: 768px) {
   main {
     font-size: 1.5rem;
