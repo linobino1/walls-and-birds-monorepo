@@ -41,7 +41,7 @@ docker compose -f docker-compose.yaml -f docker-compose.production.yaml up -d li
 
 initialize listmonks database:
 ```
-docker compose run --rm listmonk ./listmonk --install
+docker compose -f docker-compose.yaml -f docker-compose.production.yaml run --rm listmonk ./listmonk --install
 ```
 
 Run all services:
