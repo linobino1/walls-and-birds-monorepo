@@ -1,0 +1,10 @@
+{{ define "subscriber-optin" }}
+{{ template "header" . }}
+<!-- <p>{{ L.Ts "email.optin.confirmSubHelp" }}</p> -->
+<p>Please confirm your subscription by clicking the following link.</p>
+<p>
+    <a href="{{ .OptinURL }}" class="button">{{ L.Ts "email.optin.confirmSub" }}</a>
+</p>
+
+{{ template "footer" }}
+{{ end }}

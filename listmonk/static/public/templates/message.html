@@ -1,0 +1,9 @@
+{{ define "message" }}
+    {{ template "header" .}}
+
+    <p>
+        {{ .Data.Message }}
+    </p>
+
+    {{ template "footer" .}}
+{{ end }}

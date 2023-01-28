@@ -14,7 +14,7 @@ services:
     environment:
       NODE_ENV: development
       VITE_MAILING_LIST_FORM_URL: http://localhost:9000/subscription/form
-      VITE_MAILING_LIST_ID: cf2a3ab9-e4cb-4f83-9221-a040736f9172
+      VITE_MAILING_LIST_ID: 09ea9967-0a83-44ae-8f0e-ece966aa6809
 
   backend:
     image: node:18-alpine
@@ -31,7 +31,6 @@ services:
       NODE_ENV: development
       PAYLOAD_SECRET: TESTING
 
-
   backend_db:
     ports:
       - 27017:27017
@@ -43,18 +42,24 @@ services:
       - 9000:9000
     networks:
       - listmonk
+    command: "./listmonk --static-dir=/listmonk/static"
+    environment:
+      LISTMONK_app__admin_username: listmonk
+      LISTMONK_app__admin_password: listmonk
+      LISTMONK_app__email_format: both
     volumes:
       - ./listmonk/config.toml:/listmonk/config.toml
+      - ./listmonk/static:/listmonk/static
 
   listmonk_db:
     ports:
-      - 9432:5432
+      - 5432:5432
     networks:
       - listmonk
     environment:
-      - POSTGRES_PASSWORD=listmonk
-      - POSTGRES_USER=listmonk
-      - POSTGRES_DB=listmonk
+      POSTGRES_PASSWORD: listmonk
+      POSTGRES_USER: listmonk
+      POSTGRES_DB: listmonk
     restart: unless-stopped
     volumes:
       - type: volume

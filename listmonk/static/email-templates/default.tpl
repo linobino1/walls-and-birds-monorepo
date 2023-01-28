@@ -1,0 +1,10 @@
+{{ template "content" . }}
+
+
+
+
+
+
+
+
+unsubscribe: {{ UnsubscribeURL }}

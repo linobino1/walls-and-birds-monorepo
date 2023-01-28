@@ -1,0 +1,48 @@
+{{ define "archive" }}
+{{ template "header" .}}
+
+<h2>{{ L.T "public.archiveTitle" }}</h2>
+
+<section>
+  
+  <ul class="archive">
+    {{ range $c := .Data.Campaigns }}
+    <li>
+      <a href="{{ $c.URL }}">{{ $c.Subject }}</a>
+      <span class="date">
+        {{ if $c.SendAt.Valid }}
+        {{ $c.SendAt.Time.Format "Mon, 02 Jan 2006" }}
+        {{ else }}
+        {{ $c.CreatedAt.Time.Format "Mon, 02 Jan 2006" }}
+        {{ end }}
+      </span>
+    </li>
+    {{ end }}
+  </ul>
+  
+  {{ if not .Data.Campaigns }}
+  {{ L.T "public.archiveEmpty" }}
+  {{ end }}
+
+</section>
+
+<div class="spacer"></div>
+
+{{ if .EnablePublicSubPage }}
+<section>
+  <a href="{{ .RootURL }}/archive.xml" style="margin-right: 1rem;">
+    <img src="{{ .RootURL }}/public/static/rss.svg" alt="RSS" class="feed"
+    width="24" height="24" />
+  </a>
+  <a href="{{ .RootURL }}/subscription/form">{{ L.T "public.sub" }}</a>
+</section>
+{{ end }}
+
+{{ if gt .Data.TotalPages 1 }}
+<div class="pagination">{{ .Data.Pagination }}</div>
+{{ end }}
+
+<button class="button-close" onclick="window.history.back()">&#x2190; back</button>
+
+{{ template "footer-minimal" .}}
+{{ end }}

@@ -1,0 +1,36 @@
+{{ define "subscription-form" }}
+{{ template "header" . }}
+<section>
+  <form method="post" action="" class="form">
+    <p>
+      <label>{{ L.T "subscribers.email" }}</label>
+      <input name="email" required="true" type="email" placeholder="me@example.com" autofocus="true" >
+      
+      <input type="hidden" name="nonce" class="nonce" value="" />
+    </p>
+    <!-- <p>
+      <label>{{ L.T "public.subName" }}</label>
+      <input name="name" type="text" placeholder="..." >
+    </p> -->
+    <ul class="lists" style="display: none;">
+      <h2>{{ L.T "globals.terms.lists" }}</h2>
+      {{ range $i, $l := .Data.Lists }}
+      <li>
+        <input checked="true" id="l-{{ $l.UUID}}" type="checkbox" name="l" value="{{ $l.UUID }}" >
+        <label for="l-{{ $l.UUID}}">{{ $l.Name }}</label>
+        {{ if ne $l.Description "" }}
+        <p class="description">{{ $l.Description }}</p>
+        {{ end }}
+      </li>
+      {{ end }}
+    </ul>
+
+    <button type="submit" class="button">{{ L.T "public.sub" }} &#10003;</button>
+    
+    <div class="spacer"></div>
+
+  </form>
+</section>
+
+{{ template "footer" .}}
+{{ end }}

@@ -1,0 +1,62 @@
+{{ define "header" }}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+  <title>{{ .Data.Title }} - {{ .SiteName }}</title>
+  <meta name="description" content="{{ .Data.Description }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+  
+  {{ if .EnablePublicArchive }}
+  <link rel="alternate" type="application/rss+xml" title="{{ L.T "public.archiveTitle" }} - {{ .SiteName }}"
+  href="{{ .RootURL }}/archive.xml" />
+  {{ end }}
+  
+  <link href="/public/static/style.css?v2.3.0" rel="stylesheet" type="text/css" />
+  <link href="/public/custom.css" rel="stylesheet" type="text/css">
+  <script src="/public/custom.js" async defer></script>
+  
+  <link rel="shortcut icon" href="/public/static/favicon.ico" type="image/x-icon" />
+
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Walls & Birds</h1>
+
+      {{ if .EnablePublicSubPage }}
+      <!-- <a href="{{ .RootURL}}/subscription/form">
+        <h2>Mailing List</h2>
+      </a> -->
+      {{ end }}
+    </header>
+
+    {{ end }}
+
+    {{ define "footer" }}
+    <button class="button-close" onclick="onBtnClose()">cancel &#x2717;</button>
+
+    {{ if .EnablePublicArchive }}
+    <a class="archive" href="{{ .RootURL }}/archive">{{ L.T "public.archiveTitle" }}</a>
+    {{ end }}
+
+  </main>
+
+  <script>
+    function onBtnClose() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.close();
+      }
+    }
+  </script>
+</body>
+
+</html>
+{{ end }}
+
+{{ define "footer-minimal" }}
+  </main>
+</html>
+{{ end }}
