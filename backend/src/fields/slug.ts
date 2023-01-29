@@ -36,8 +36,6 @@ function addSlugField(forField: string, collection: CollectionConfig): Collectio
     type: 'text',
     unique: true,
     index: true,
-    required: true,
-    validate: (data) => !!data || 'please enter a slug manually',
     admin: {
       position: 'sidebar',
     },
