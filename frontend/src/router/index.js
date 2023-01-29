@@ -27,11 +27,18 @@ const router = createRouter({
       path: '/songbook',
       name: 'songbook',
       component: SongbookView,
+      meta: {
+        theme: 'bright',
+      },
     },
     {
       path: '/songbook/:song',
       name: 'song',
       component: SongView,
+      meta: {
+        theme: 'bright',
+        hideFooter: true,
+      },
     },
   ]
 })

@@ -67,6 +67,7 @@ function showOnClick(show) {
     <a href="mailto:judy@wallsandbirds.com">contact</a>
 
     <RouterLink :to="{ name: 'faq' }">faq</RouterLink>
+    <RouterLink :to="{ name: 'songbook' }">songbook</RouterLink>
 
     <iframe class="old" src="https://firetruck.wallsandbirds.com" width="300px" height="400px" />
 
@@ -79,7 +80,7 @@ function showOnClick(show) {
 }
 main > * {
   z-index: 1;
-  background-color: #000;
+  background-color: var(--color-bg);
 }
 main {
   display: flex;
@@ -97,7 +98,6 @@ main {
 h1 {
   font-size: 6rem;
   font-family: 'Cooper', serif;
-  color: #fff;
   cursor: none;
 }
 h2 {

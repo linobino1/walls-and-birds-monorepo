@@ -45,10 +45,6 @@ const songs = computed(() => result?.value?.Songs?.docs)
 </template>
 
 <style scoped>
-main > * {
-  z-index: 1;
-  background-color: #000;
-}
 main {
   display: flex;
   flex-direction: column;
@@ -65,19 +61,6 @@ main {
 h1 {
   font-size: 6rem;
   font-family: 'Cooper', serif;
-  color: #fff;
-}
-h2 {
-  font-size: inherit;
-  font-weight: normal;
-  text-decoration: underline;
-  margin: 0;
-  margin-bottom: .5em;
-}
-main > hr {
-  width: 0;
-  border: 0;
-  margin: 2rem 0;
 }
 a:visited,
 a:hover,
@@ -88,12 +71,6 @@ a {
 }
 a:hover {
   text-decoration: underline;
-}
-.releases {
-  display: flex;
-  flex-direction: row;
-  column-gap: .5rem;
-  align-items: center;
 }
 ul {
   display: flex;
@@ -109,24 +86,6 @@ ul {
   text-decoration: underline;
   cursor: pointer;
 }
-iframe.old {
-  position: relative;
-  margin-top: 2rem;
-  left: 10%;
-  transform: rotate3d(1, 1, 1, -45deg);
-  z-index: 0;
-}
-@media (min-width: 1024px) {
-  iframe.old {
-    position: relative;
-    margin-top: -8rem;
-    left: -9%;
-    transform: rotate3d(1, 1, 1, -45deg);
-    z-index: 0;
-    /* justify-self: end; */
-    align-self: end;
-  }
-}
 @media (max-width: 768px) {
   main {
     font-size: 1.5rem;
@@ -135,12 +94,6 @@ iframe.old {
   h1 {
     font-size: 12vw;
     font-size: min(4rem, 12vw);
-  }
-  iframe.old {
-    position: relative;
-    top: 67%;
-    right: -13%;
-    height: 10rem;
   }
 }
 </style>
