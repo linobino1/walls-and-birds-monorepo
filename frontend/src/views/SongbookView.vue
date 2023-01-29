@@ -7,7 +7,7 @@ import { computed } from 'vue';
 const { result } = useQuery(
   gql`
     query songbook {
-      Songs(where: { by: { equals: "Walls & Birds" }}) {
+      Songs(limit:500 sort: "title" where: { by: { equals: "Walls & Birds" }}) {
         docs {
           title
           by
