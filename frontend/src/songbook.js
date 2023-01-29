@@ -37,7 +37,6 @@ function setUpMappingTable (array, steps) {
     for (let i = 0; i < array.length; i++) {
       result[array[i]] = array[(i + shift) % array.length]; //objects vom typ A:"A#"
     }
-    console.log(result);
     return result;
   }
   return array;

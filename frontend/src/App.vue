@@ -5,7 +5,6 @@ import { RouterLink, RouterView, useRoute } from 'vue-router'
 const route = useRoute();
 
 function setTheme() {
-  console.log(route.meta);
   const theme = {
     'color-bg': '#000',
     'color-fg': '#fff',
