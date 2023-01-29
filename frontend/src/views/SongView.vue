@@ -57,7 +57,7 @@ const song = computed(() => result.value?.Songs?.docs[0]);
 <style scoped>
 main {
 	font-family: Courier, monospace;
-	Padding: 2em;
+	Padding: .5rem;
 	font-size: .8em;
   background-color: var(--color-bg);
   color: var(--color-fg);
