@@ -7,6 +7,12 @@ import SongView from '../views/SongView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    if (to in ['song']) {
+      return { top: 0 };
+    }
+    return savedPosition;
+  },
   routes: [
     {
       path: '/',
