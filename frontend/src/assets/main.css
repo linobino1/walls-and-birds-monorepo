@@ -2,6 +2,15 @@
   font-family: 'Cooper';
   src: url('/src/assets/fonts/CooperBlackStd.otf'); 
 }
+@font-face {
+  font-family: 'Courier New';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    /* local('Courier New'), local('CourierNew-Regular'), */
+    url('/src/assets/fonts/courier-new.woff') format('woff'), 
+    url('/src/assets/fonts/courier-new.ttf') format('truetype'), 
+}
 
 :root {
   --color-theme: rgb(30, 144, 255);  /* dodgerblue */

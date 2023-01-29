@@ -14,7 +14,8 @@
     "@apollo/client": "^3.7.4",
     "date-fns": "^2.29.3",
     "graphql": "^16.6.0",
-    "graphql-tag": "^2.12.6"
+    "graphql-tag": "^2.12.6",
+    "@vue/apollo-composable": "^4.0.0-beta.1"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",

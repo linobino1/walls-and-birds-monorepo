@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue';
 import ImprintView from '../views/ImprintView.vue';
 import FaqView from '../views/FaqView.vue';
+import SongbookView from '../views/SongbookView.vue';
+import SongView from '../views/SongView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +22,16 @@ const router = createRouter({
       path: '/faq',
       name: 'faq',
       component: FaqView,
+    },
+    {
+      path: '/songbook',
+      name: 'songbook',
+      component: SongbookView,
+    },
+    {
+      path: '/songbook/:song',
+      name: 'song',
+      component: SongView,
     },
   ]
 })
