@@ -14,10 +14,10 @@ function addSlugField(forField: string, collection: CollectionConfig): Collectio
   if (!('hooks' in res)) {
     res.hooks = {};
   }
-  if (!('beforeChange' in res.hooks)) {
-    res.hooks.beforeChange = [];
+  if (!('beforeValidate' in res.hooks)) {
+    res.hooks.beforeValidate = [];
   }
-  res.hooks?.beforeChange?.push(
+  res.hooks?.beforeValidate?.push(
     ({ data }) => {
       const modifiedData = data;
       if (!data?.slug) {
