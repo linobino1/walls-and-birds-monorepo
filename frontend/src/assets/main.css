@@ -7,7 +7,7 @@
   font-style: normal;
   font-weight: 400;
   src:
-    /* local('Courier New'), local('CourierNew-Regular'), */
+    local('Courier New'), local('CourierNew-Regular'),
     url('/src/assets/fonts/courier-new.woff') format('woff'), 
     url('/src/assets/fonts/courier-new.ttf') format('truetype'), 
 }
