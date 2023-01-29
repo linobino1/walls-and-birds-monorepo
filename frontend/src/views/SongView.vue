@@ -6,13 +6,13 @@ import { useQuery } from '@vue/apollo-composable';
 import { transpose } from '../songbook.js';
 
 const route = useRoute();
-const title = route.query.title;
+const slug = route.query.slug;
 
 // Shows
 const { result } = useQuery(
   gql` 
-    query song($title: String) {
-      Songs(where: { title: { equals: $title }}) {
+    query song($slug: String) {
+      Songs(where: { slug: { equals: $slug }}) {
         docs {
           title
           by
@@ -23,7 +23,7 @@ const { result } = useQuery(
     }
   `,
   {
-    title,
+    slug,
   }
 );
 const song = computed(() => result.value?.Songs?.docs[0]);

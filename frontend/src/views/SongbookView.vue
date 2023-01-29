@@ -9,6 +9,7 @@ const { result } = useQuery(
     query songbook {
       Songs(limit:500 sort: "title" where: { by: { equals: "Walls & Birds" }}) {
         docs {
+          slug
           title
           by
           content
@@ -32,7 +33,7 @@ const songs = computed(() => result?.value?.Songs?.docs)
       <RouterLink
         v-for="song in songs"
         :key="song.title"
-        :to="{ name: 'song', params: { song: song.title }}"
+        :to="{ name: 'song', params: { song: song.slug }}"
       >
         <li class="clickable">
           {{ song.title }}

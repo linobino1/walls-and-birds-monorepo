@@ -1,6 +1,7 @@
 import { CollectionConfig } from 'payload/types';
+import { addSlugField } from '../fields/slug';
 
-const Songs: CollectionConfig = {
+const Songs: CollectionConfig = addSlugField('title', {
   slug: 'songs',
   admin: {
     defaultColumns: [
@@ -34,6 +35,6 @@ const Songs: CollectionConfig = {
       required: true,
     },
   ],
-}
+});
 
 export default Songs;
