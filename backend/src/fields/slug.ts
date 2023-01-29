@@ -37,6 +37,7 @@ function addSlugField(forField: string, collection: CollectionConfig): Collectio
     unique: true,
     index: true,
     required: true,
+    validate: (data) => !!data,
     admin: {
       position: 'sidebar',
     },
