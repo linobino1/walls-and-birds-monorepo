@@ -8,11 +8,12 @@ import format from 'date-fns/format';
 import { enUS } from 'date-fns/esm/locale';
 
 // Shows
+const from = new Date(new Date().setDate(new Date().getDate() - 7));  // 1 week ago
 const shows = ref([]);
 apollo.query({
   query: gql` 
-    query upcomingShows {
-      Shows {
+    query upcomingShows($from: DateTime!) {
+      Shows (sort: "date", where: { date: { greater_than: $from } }) {
         docs {
           date
           location
@@ -21,6 +22,9 @@ apollo.query({
       }
     }
   `,
+  variables: {
+    from,
+  }
 })
 .then((res) => {
   shows.value = res.data.Shows.docs;
