@@ -6,7 +6,7 @@ import { useQuery } from '@vue/apollo-composable';
 import { transpose } from '../songbook.js';
 
 const route = useRoute();
-const slug = route.query.slug;
+const slug = route.query.song;
 
 // Shows
 const { result } = useQuery(
