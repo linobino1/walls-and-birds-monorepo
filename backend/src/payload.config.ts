@@ -3,6 +3,7 @@ import path from 'path';
 import Users from './collections/Users';
 import Shows from './collections/Shows';
 import Songs from './collections/Songs';
+import Faq from './globals/Faq';
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
@@ -16,6 +17,9 @@ export default buildConfig({
     Users,
     Shows,
     Songs,
+  ],
+  globals: [
+    Faq,
   ],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),

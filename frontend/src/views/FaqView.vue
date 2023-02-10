@@ -1,13 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import rawTexts from '../faq.js';
+import { useQuery } from '@vue/apollo-composable';
+import gql from 'graphql-tag';
+import { ref, computed } from 'vue';
 
-const texts = [];
-rawTexts.forEach((text) => texts.push({
-  text,
-  top: Math.random() * 100,
-  left: Math.random() * 100,
-}));
+const { result } = useQuery(
+  gql`
+    query faq {
+      Faq {
+        questions {
+          id
+          question
+        }
+      }
+    }
+  `
+);
+const items = computed(() => result?.value?.Faq.questions);
 
 let index = 0;
 let active = false;
@@ -16,7 +24,7 @@ let active = false;
 const invert = ref(null);
 document.addEventListener('keydown', (event) => {
   if (event.code == 'KeyI') {
-    invert.value.classList.toggle('show');
+    invert.value?.classList.toggle('show');
   }
 });
 
@@ -28,19 +36,19 @@ document.addEventListener('keydown', (event) => {
 function anyClick() {
   active = !active;
   if (active) {
-    activateNode(texts[index]);
+    activate(items.value[index]);
   } else {
-    deactivateNode(texts[index]);
-    if (index < texts.length - 1) index++;
+    deactivate(items.value[index]);
+    if (index < items.value.length - 1) index++;
   }
 }
-function activateNode(node) {
-  const active = document.getElementById(node.text);
-  active.classList.add('active');
+function activate(item) {
+  const active = document.getElementById(item.id);
+  active && active.classList.add('active');
 }
-function deactivateNode(node) {
-  const active = document.getElementById(node.text);
-  active.classList.remove('active');
+function deactivate(item) {
+  const active = document.getElementById(item.id);
+  active && active.classList.remove('active');
 }
 </script>
 
@@ -48,14 +56,13 @@ function deactivateNode(node) {
   <main @keydown.space="anyClick()" @click="anyClick()">
     <div class="wrapper">
       <div
-        v-for="text in texts"
-        :key="text"
-        :id="text.text"
-        :style="'transform: translate(' + text.left + 'vw,' + text.top + 'vh) scaleX(.1);'"
+        v-for="item in items"
+        :key="item"
+        :id="item.id"
+        :style="'transform: translate(' + (Math.random() * 100) + 'vw,' + (Math.random() * 100) + 'vh) scaleX(.1);'"
         class="node"
-        @click="nodeOnClick(text)"
       >
-        <div class="content">{{ text.text }}</div>
+        <div class="content">{{ item.question }}</div>
       </div>
     </div>
     <div ref="invert" class="invert" />

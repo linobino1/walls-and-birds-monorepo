@@ -30,6 +30,7 @@ services:
       PORT: 3000
       NODE_ENV: development
       PAYLOAD_SECRET: TESTING
+      ADMIN_KEY: secret123
 
   backend_db:
     ports:
