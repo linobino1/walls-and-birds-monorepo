@@ -62,6 +62,9 @@ const info = computed(() => result?.value?.Info)
     <section>
       <h2>Latest Release "Less than a kilometer away"</h2>
       <p>
+        release date: tba, 2023
+      </p>
+      <p>
         <a href="https://www.youtube.com/playlist?list=PLqoBupXjXKWNH5gI9MfMJUt8sXxdtZ4I5" target="_blank">https://www.youtube.com/playlist?list=PLqoBupXjXKWNH5gI9MfMJUt8sXxdtZ4I5</a>
       </p>
       <h3>Press Release (short)</h3>
