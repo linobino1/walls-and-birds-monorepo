@@ -8,8 +8,6 @@ services:
     networks:
       - net
       - default
-    env_file:
-      - .env
     build:
       context: ./frontend
       args:
@@ -33,7 +31,6 @@ services:
       - default
     volumes:
       - ./media:/media
-    env_file: .env
     build:
       context: ./backend
       args:
@@ -54,6 +51,8 @@ services:
 
   backend_db:
     image: mongo:4.4.18 # last version running without CPU flag AVX
+    command:
+      - --storageEngine=wiredTiger
     expose:
       - 27017
     volumes:
@@ -61,6 +60,10 @@ services:
     restart: always
 
   listmonk:
+    image: listmonk/listmonk:latest
+    container_name: listmonk
+    depends_on:
+      - listmonk_db
     expose:
       - 9000
     networks:
@@ -72,6 +75,7 @@ services:
       - ./listmonk_uploads:/listmonk/uploads
     command: "./listmonk --static-dir=/listmonk/static"
     environment:
+      TZ: Etc/UTC
       VIRTUAL_HOST: ${DOMAIN_NEWSLETTER}
       LETSENCRYPT_HOST: ${DOMAIN_NEWSLETTER}
       LISTMONK_app__admin_username: ${LISTMONK_USER}
@@ -80,6 +84,12 @@ services:
     restart: always
 
   listmonk_db:
+    image: postgres:13
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U listmonk"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
     expose:
       - 5432
     networks:
@@ -147,8 +157,6 @@ services:
       context: ./firetruck
     expose:
       - 80
-    env_file:
-      - ./.env
     networks:
       - net
       - default
@@ -170,8 +178,6 @@ services:
       - 3306
     container_name: old_db
     image: mysql
-    env_file:
-      - ./.env
     networks:
       - default
     volumes:
