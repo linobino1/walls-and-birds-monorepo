@@ -27,15 +27,6 @@ const info = computed(() => result?.value?.Info)
       <div>Walls & Birds</div>
       <div>Press Info</div>
     </h1>
-    
-    <section>
-      <h2>Contact</h2>
-      <ul>
-        <li>
-          <a href="mailto:judy@wallsandbirds.com">judy@wallsandbirds.com</a>
-        </li>
-      </ul>
-    </section>
 
     <section>
       <h2>Info</h2>
@@ -55,6 +46,15 @@ const info = computed(() => result?.value?.Info)
         </li>
         <li>
           label: <a href="https://beatbude.com" target="_blank">beatbude.com</a>
+        </li>
+      </ul>
+    </section>
+    
+    <section>
+      <h2>Contact</h2>
+      <ul>
+        <li>
+          <a href="mailto:judy@wallsandbirds.com">judy@wallsandbirds.com</a>
         </li>
       </ul>
     </section>
