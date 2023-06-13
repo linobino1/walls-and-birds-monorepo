@@ -4,6 +4,7 @@ import ImprintView from '../views/ImprintView.vue';
 import FaqView from '../views/FaqView.vue';
 import SongbookView from '../views/SongbookView.vue';
 import SongView from '../views/SongView.vue';
+import InfoView from '../views/info/index.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +47,15 @@ const router = createRouter({
         hideFooter: true,
       },
     },
+    {
+      path: '/info',
+      name: 'info',
+      component: InfoView,
+      meta: {
+        theme: 'bright',
+        hideFooter: true,
+      },
+    }
   ]
 })
 
