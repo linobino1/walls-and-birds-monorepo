@@ -1,52 +1,65 @@
 version: "3.7"
+name: app
 
 services:
-
+  # WEBSITE      #################################################################
   frontend:
     expose:
       - 80
     networks:
-      - net
-      - default
+      - traefik
     build:
       context: ./frontend
       args:
-        VITE_HOST_BACKEND: https://${DOMAIN_BACKEND}
-        VITE_MAILING_LIST_FORM_URL: https://${DOMAIN_NEWSLETTER}/subscription/form
+        VITE_HOST_BACKEND: https://backend.${DOMAIN}
+        VITE_MAILING_LIST_FORM_URL: https://newsletter.${DOMAIN}/subscription/form
         VITE_MAILING_LIST_ID: ${NEWSLETTER_LIST_ID}
     environment:
       NODE_ENV:
-      VITE_HOST_BACKEND: https://${DOMAIN_BACKEND}
-      VIRTUAL_HOST: ${DOMAIN_FRONTEND}
-      LETSENCRYPT_HOST: ${DOMAIN_FRONTEND}
-      VITE_MAILING_LIST_FORM_URL: https://${DOMAIN_NEWSLETTER}/subscription/form
+      VITE_HOST_BACKEND: https://backend.${DOMAIN}
+      VITE_MAILING_LIST_FORM_URL: https://newsletter.${DOMAIN}/subscription/form
       VITE_MAILING_LIST_ID: ${NEWSLETTER_LIST_ID}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.frontend.rule=(Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`))
+      - traefik.http.routers.frontend.entrypoints=websecure
+      - traefik.http.routers.frontend.tls=true
+      - traefik.http.routers.frontend.tls.certresolver=letsencrypt
+      - traefik.http.routers.frontend.tls.domains[0].main=${DOMAIN}
+      - traefik.http.routers.frontend.tls.domains[0].sans=www.${DOMAIN}
+      - traefik.http.routers.frontend.middlewares=to-nonwww
+      - traefik.docker.network=traefik
     restart: always
 
   backend:
     expose:
       - 3000
     networks:
-      - net
+      - traefik
       - default
     volumes:
       - ./media:/media
     build:
       context: ./backend
       args:
-        PAYLOAD_PUBLIC_SERVER_URL: https://${DOMAIN_BACKEND}
-        PAYLOAD_PUBLIC_CORS: https://${DOMAIN_FRONTEND}
+        PAYLOAD_PUBLIC_SERVER_URL: https://backend.${DOMAIN}
+        PAYLOAD_PUBLIC_CORS: https://${DOMAIN}
         MEDIA_DIR: /media
     environment:
       NODE_ENV:
       MEDIA_DIR: /media
-      PAYLOAD_PUBLIC_SERVER_URL: https://${DOMAIN_BACKEND}
-      PAYLOAD_PUBLIC_CORS: https://${DOMAIN_FRONTEND}
+      PAYLOAD_PUBLIC_SERVER_URL: https://backend.${DOMAIN}
+      PAYLOAD_PUBLIC_CORS: https://${DOMAIN}
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-      VIRTUAL_HOST: ${DOMAIN_BACKEND}
-      LETSENCRYPT_HOST: ${DOMAIN_BACKEND}
       MONGODB_URI: mongodb://backend_db:27017/backend
       ADMIN_KEY:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.backend.rule=Host(`backend.${DOMAIN}`)
+      - traefik.http.routers.backend.entrypoints=websecure
+      - traefik.http.routers.backend.tls=true
+      - traefik.http.routers.backend.tls.certresolver=letsencrypt
+      - traefik.docker.network=traefik
     restart: always
 
   backend_db:
@@ -59,16 +72,16 @@ services:
       - mongo-data:/data/db
     restart: always
 
+  # NEWSLETTER SYSTEM (LISTMONK)  ################################################
   listmonk:
-    image: listmonk/listmonk:latest
-    container_name: listmonk
+    image: listmonk/listmonk
     depends_on:
       - listmonk_db
     expose:
       - 9000
     networks:
       - listmonk
-      - net
+      - traefik
     volumes:
       - ./listmonk/config.toml:/listmonk/config.toml
       - ./listmonk/static:/listmonk/static
@@ -76,11 +89,16 @@ services:
     command: "./listmonk --static-dir=/listmonk/static"
     environment:
       TZ: Etc/UTC
-      VIRTUAL_HOST: ${DOMAIN_NEWSLETTER}
-      LETSENCRYPT_HOST: ${DOMAIN_NEWSLETTER}
       LISTMONK_app__admin_username: ${LISTMONK_USER}
       LISTMONK_app__admin_password: ${LISTMONK_PASS}
       LISTMONK_app__email_format: both
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.listmonk.rule=Host(`newsletter.${DOMAIN}`)
+      - traefik.http.routers.listmonk.entrypoints=websecure
+      - traefik.http.routers.listmonk.tls=true
+      - traefik.http.routers.listmonk.tls.certresolver=letsencrypt
+      - traefik.docker.network=traefik
     restart: always
 
   listmonk_db:
@@ -104,51 +122,75 @@ services:
       POSTGRES_DB: listmonk
     restart: always
 
-  proxy:
-    container_name: proxy
-    image: jwilder/nginx-proxy:alpine
-    volumes:
-      - html:/usr/share/nginx/html
-      - dhparam:/etc/nginx/dhparam
-      - vhost:/etc/nginx/vhost.d
-      - certs:/etc/nginx/certs:ro
-      - /run/docker.sock:/tmp/docker.sock:ro
-    networks: 
-      - net
-    ports:
-      - 80:80
-      - 443:443
-    restart: always
-
-  # redirect www (http/https) -> non-www (https)
-  redirect:
-    container_name: redirect
-    image: adamkdean/redirect
+  # CLOUD (NEXTCLOUD)   ##########################################################
+  cloud:
+    image: nextcloud:22
+    depends_on:
+      - cloud_db
+      - cloud_cache
+    expose:
+      - 80
     networks:
-      - net
-    environment:
-      VIRTUAL_HOST: www.${DOMAIN_FRONTEND}
-      LETSENCRYPT_HOST: www.${DOMAIN_FRONTEND}
-      REDIRECT_LOCATION: https://${DOMAIN_FRONTEND}
-      REDIRECT_STATUS_CODE: 301
-      PRESERVE_URL: true
-    restart: always
-  
-  certbot:
-    image: nginxproxy/acme-companion
-    container_name: certbot
-    volumes_from:
-      - proxy
-    environment:
-      NGINX_PROXY_CONTAINER: proxy
-      DEFAULT_EMAIL: ${EMAIL_ADMIN}
-      # ACME_CA_URI: https://acme-staging-v02.api.letsencrypt.org/directory # staging
+      - traefik
+      - cloud
     volumes:
-      - certs:/etc/nginx/certs:rw
-      - acme:/etc/acme.sh
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - cloud-html:/var/www/html
+      - cloud-data:/var/www/html/data
+    # we migrated the config from a previous installation...
+    # environment:
+      # POSTGRES_DB: cloud
+      # POSTGRES_USER: cloud
+      # POSTGRES_PASSWORD: ${CLOUD_DB_PASS}
+      # POSTGRES_HOST: cloud_db:5432
+      # NEXTCLOUD_ADMIN_USER: ${NEXTCLOUD_ADMIN_USER}
+      # NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASS}
+      # NEXTCLOUD_TRUSTED_DOMAINS: cloud.${DOMAIN}
+      # OVERWRITEPROTOCOL: https
+      # REDIS_HOST: cloud_cache
+      # REDIS_HOST_PASSWORD: ${CLOUD_CACHE_PASS}
+      # SMTP_HOST: ${CLOUD_SMTP_HOST}
+      # SMTP_PORT: ${CLOUD_SMTP_PORT}
+      # SMTP_SECURE: ${CLOUD_SMTP_SECURE}
+      # SMTP_NAME: ${CLOUD_SMTP_NAME}
+      # SMTP_PASSWORD: ${CLOUD_SMTP_PASSWORD}
+      # MAIL_FROM_ADDRESS: ${CLOUD_MAIL_FROM_ADDRESS}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.cloud.rule=Host(`cloud.${DOMAIN}`)
+      - traefik.http.routers.cloud.entrypoints=websecure
+      - traefik.http.routers.cloud.tls=true
+      - traefik.http.routers.cloud.tls.certresolver=letsencrypt
+      - traefik.docker.network=traefik
+    restart: always
+    
+  cloud_cache:
+    image: redis:alpine
+    networks:
+      - cloud
+    command: ["redis-server", "--requirepass", "${CLOUD_CACHE_PASS}"]
     restart: always
 
+  # we migrated the config from a previous installation including a sqlite db...
+  # cloud_db:
+  #   image: postgres:13
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U cloud"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 6
+  #   expose:
+  #     - 5432
+  #   networks:
+  #     - cloud
+  #   volumes:
+  #     - cloud-db-data:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_PASSWORD: ${CLOUD_DB_PASS}
+  #     POSTGRES_USER: cloud
+  #     POSTGRES_DB: cloud
+  #   restart: always
+
+  # OLD WEBSITE (FIRETRUCK) ######################################################
   firetruck:
     container_name: firetruck
     depends_on:
@@ -158,28 +200,31 @@ services:
     expose:
       - 80
     networks:
-      - net
-      - default
+      - traefik
+      - firetruck
     environment:
       OLD_DB_HOST: old_db:3306
       OLD_DB_NAME:
       OLD_DB_USER:
       OLD_DB_PASS:
-      VIRTUAL_HOST: ${DOMAIN_FIRETRUCK}
-      LETSENCRYPT_HOST: ${DOMAIN_FIRETRUCK}
     volumes:
       - ./firetruck:/var/www/html
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.firetruck.rule=Host(`firetruck.${DOMAIN}`)
+      - traefik.http.routers.firetruck.entrypoints=websecure
+      - traefik.http.routers.firetruck.tls=true
+      - traefik.http.routers.firetruck.tls.certresolver=letsencrypt
+      - traefik.docker.network=traefik
     restart: always
   
   old_db:
-    ports:
-      - 3306:3306
+    image: mysql
     expose:
       - 3306
     container_name: old_db
-    image: mysql
     networks:
-      - default
+      - firetruck
     volumes:
       - old_db_data:/var/lib/mysql
       - ./old_db_backup:/share
@@ -192,17 +237,17 @@ services:
 
 volumes:
   mongo-data:
+  cloud-html:
+  cloud-data:
+  cloud-db-data:
   listmonk-data:
   old_db_data:
   data:
-  certs:
-  html:
-  vhost:
-  dhparam:
-  acme:
 
 networks:
   listmonk:
-  net:
-    name: net
+  cloud:
+  firetruck:
+  traefik:
+    name: traefik
     external: true
