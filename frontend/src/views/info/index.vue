@@ -64,9 +64,14 @@ const info = computed(() => result?.value?.Info)
       <p>
         release date: tba, 2023
       </p>
-      <p>
-        <a href="https://www.youtube.com/playlist?list=PLqoBupXjXKWNH5gI9MfMJUt8sXxdtZ4I5" target="_blank">https://www.youtube.com/playlist?list=PLqoBupXjXKWNH5gI9MfMJUt8sXxdtZ4I5</a>
-      </p>
+      <ul>
+        <li>
+          <a href="https://www.youtube.com/playlist?list=PLqoBupXjXKWNH5gI9MfMJUt8sXxdtZ4I5" target="_blank">https://www.youtube.com/playlist?list=PLqoBupXjXKWNH5gI9MfMJUt8sXxdtZ4I5</a>
+        </li>
+        <li>
+          download: <a href="http://cloud.wallsandbirds.com/index.php/s/Zjkpiifc5Rt2fKf">wav or mp3</a>
+        </li>
+      </ul>
       <h3>Press Release (short)</h3>
       <PressText>2023: Walls & Birds is coming back with a new record on the Berlin record label Beatbude. The two song vinyl release with a limited first edition of 250 copies is accompanied by a digital bonus track and a consecutive music video. Join in for news and shows at <a href="https://wallsandbirds.com">wallsandbirds.com</a>.</PressText>
       <h3>Press Release (long)</h3>
