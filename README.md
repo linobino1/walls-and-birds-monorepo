@@ -63,7 +63,6 @@ docker exec -it old_db sh
 mysql -u root -p
 
 # load backup
-> create database Shows;
-> use Shows;
+> use shows;
 > source /share/DB2613259-2023-01-20.sql 
 ```
