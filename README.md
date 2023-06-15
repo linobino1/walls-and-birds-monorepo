@@ -66,3 +66,17 @@ mysql -u root -p
 > use shows;
 > source /share/DB2613259-2023-01-20.sql 
 ```
+
+### PostgreSQL Database (listmonk & nextcloud)
+
+#### Export
+
+```
+docker exec -i pg_container_name /bin/bash -c "PGPASSWORD=pg_password pg_dump --username pg_username database_name" > /desired/path/on/your/machine/dump.sql
+```
+
+#### Import
+
+```
+docker exec -i pg_container_name /bin/bash -c "PGPASSWORD=pg_password psql --username pg_username database_name" < /path/on/your/machine/dump.sql
+```
