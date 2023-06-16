@@ -69,11 +69,11 @@ const info = computed(() => result?.value?.Info)
           <a href="https://www.youtube.com/playlist?list=PLqoBupXjXKWNH5gI9MfMJUt8sXxdtZ4I5" target="_blank">https://www.youtube.com/playlist?list=PLqoBupXjXKWNH5gI9MfMJUt8sXxdtZ4I5</a>
         </li>
         <li>
-          download: <a href="http://cloud.wallsandbirds.com/index.php/s/Zjkpiifc5Rt2fKf">wav or mp3</a>
+          download: <a href="http://cloud.wallsandbirds.com/index.php/s/Zjkpiifc5Rt2fKf" target="_blank">wav or mp3</a>
         </li>
       </ul>
       <h3>Press Release (short)</h3>
-      <PressText>2023: Walls & Birds is coming back with a new record on the Berlin record label Beatbude. The two song vinyl release with a limited first edition of 300 copies is accompanied by a digital bonus track and a consecutive music video. Join in for news and shows at <a href="https://wallsandbirds.com">wallsandbirds.com</a>.</PressText>
+      <PressText>2023: Walls & Birds is coming back with a new record on the Berlin record label Beatbude. The two song vinyl release with a limited first edition of 300 copies is accompanied by a digital bonus track and a consecutive music video. Join in for news and shows at <a href="https://wallsandbirds.com" target="_blank">wallsandbirds.com</a>.</PressText>
       <h3>Press Release (long)</h3>
       <PressText>
         2023: Walls & Birds is coming back with a new record on the berlin record label Beatbude. Much like their previous releases, ”Less than a kilometer away” is Walls & Birds new take on popular music today. Recorded with the aid of ”The Whitest Boy Alive” keyboarder Daniel Nentwig at the local Butterama Recording Center, the three song release features a limited edition of 300 7" vinyl copies, a fold-out poster and a consecutive music video. The first song ”Wearing a dress” touches on the theme of modern clothing habits, while questioning relationship patterns still widespread in popular music lyrics. The surprising element of new found love is also one of the themes of the B-side “heads || tales ? '❤️'“ telling the story of a late night after work taxi ride with the chorus contemplating about the eternal either or question, plainly answered with: love. The cheerful upbeat digital bonus track ”Summer 2002” is as meaningless as most any nice pop song to date. 
