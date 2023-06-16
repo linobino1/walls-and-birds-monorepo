@@ -126,7 +126,7 @@ services:
   cloud:
     image: nextcloud:22
     depends_on:
-      - cloud_db
+      # - cloud_db # see below
       - cloud_cache
     expose:
       - 80
