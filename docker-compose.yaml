@@ -21,9 +21,9 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./backend/:/home/node/app
-      - /home/node/app/node_modules
-    working_dir: /home/node/app/
+      - ./backend/:/app
+      - /app/node_modules
+    working_dir: /app
     command: sh -c "yarn install && yarn dev"
     environment:
       MONGODB_URI: mongodb://backend_db:27017/backend

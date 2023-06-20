@@ -1,4 +1,8 @@
+import path from 'path';
 import { CollectionConfig } from 'payload/types';
+
+export const staticDir = path.resolve(__dirname, '../../media/pressPhotos');
+export const staticURL = '/media/pressPhotos';
 
 const PressPhotos: CollectionConfig = {
   slug: 'pressPhotos',
@@ -9,6 +13,8 @@ const PressPhotos: CollectionConfig = {
     group: 'info',
   },
   upload: {
+    staticDir,
+    staticURL,
     formatOptions: {
       format: 'jpeg',
       options: {

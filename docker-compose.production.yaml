@@ -38,16 +38,14 @@ services:
       - traefik
       - default
     volumes:
-      - ./media:/media
+      - media:/app/media
     build:
       context: ./backend
       args:
         PAYLOAD_PUBLIC_SERVER_URL: https://backend.${DOMAIN}
         PAYLOAD_PUBLIC_CORS: https://${DOMAIN}
-        MEDIA_DIR: /media
     environment:
       NODE_ENV:
-      MEDIA_DIR: /media
       PAYLOAD_PUBLIC_SERVER_URL: https://backend.${DOMAIN}
       PAYLOAD_PUBLIC_CORS: https://${DOMAIN}
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
@@ -236,6 +234,7 @@ services:
     restart: always
 
 volumes:
+  media:
   mongo-data:
   cloud-html:
   cloud-data:
