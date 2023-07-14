@@ -51,7 +51,7 @@ const info = computed(() => result?.value?.Info)
     </section>
     
     <section>
-      <h2>Contact</h2>
+      <h2>Contact & Booking</h2>
       <ul>
         <li>
           <a href="mailto:judy@wallsandbirds.com">judy@wallsandbirds.com</a>
