@@ -83,7 +83,7 @@ services:
     volumes:
       - ./listmonk/config.toml:/listmonk/config.toml
       - ./listmonk/static:/listmonk/static
-      - ./listmonk_uploads:/listmonk/uploads
+      - listmonk-uploads:/listmonk/uploads
     command: "./listmonk --static-dir=/listmonk/static"
     environment:
       TZ: Etc/UTC
@@ -239,6 +239,7 @@ volumes:
   cloud-html:
   cloud-data:
   cloud-db-data:
+  listmonk-uploads:
   listmonk-data:
   old_db_data:
   data:
