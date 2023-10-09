@@ -63,17 +63,17 @@ const downloadSizes = computed(() => {
   if (!res) return [];
   return Object.keys(res).map((key) => ({
     label: key.replace('_', ''),
-    downloadFilename: formatName(photo.value),
+    downloadFilename: formatName(photo.value, res[key]),
     url: res[key].url,
   }));
 });
 const container = ref(null);
 
-const formatName = () => {
-  const { caption, rights } = photo;
-  let name = caption || rights || 'photo';
+const formatName = (photo, size) => {
+  let name = photo?.caption || photo?.rights || 'photo';
   name = name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
   name = `walls_and_birds_${name}.jpg`
+  if (size) name = name.replace('.jpg', `_${size.width}x${size.height}.jpg`);
   return name;
 };
 </script>
@@ -95,9 +95,9 @@ const formatName = () => {
       class="preview"
     />
     <div class="bar">
-      <div>{{ photo?.caption }}</div>
+      <div>{{ photo?.caption }}, © {{ photo?.rights }}</div>
       <div v-for="size in downloadSizes" :key="size.url">
-        <a :href="size.url" :download="formatName()" target="_blank">
+        <a :href="size.url" :download="size.downloadFilename" target="_blank">
           {{ size.label }}
         </a>
       </div>
@@ -120,7 +120,7 @@ p {
   justify-content: end;
   align-items: center;
   font-size: small;
-  color: lightgrey;
+  color: grey;
 }
 .bar > * {
   padding: .5rem;
