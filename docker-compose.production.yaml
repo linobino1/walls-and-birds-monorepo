@@ -205,8 +205,6 @@ services:
       OLD_DB_NAME:
       OLD_DB_USER:
       OLD_DB_PASS:
-    volumes:
-      - ./firetruck:/var/www/html
     labels:
       - traefik.enable=true
       - traefik.http.routers.firetruck.rule=Host(`firetruck.${DOMAIN}`)
