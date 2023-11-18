@@ -160,10 +160,10 @@ Your browser does not support the audio element.
   <h1>Upcoming shows:</h1>
   
 	<?php
-	$servername = getenv('OLD_DB_HOST');
-	$username = getenv('OLD_DB_USER');
-	$password = getenv('OLD_DB_PASS');
-	$dbname = getenv('OLD_DB_NAME');
+	$servername = getenv('DB_HOST');
+	$username = getenv('DB_USER');
+	$password = getenv('DB_PASS');
+	$dbname = getenv('DB_NAME');
 
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);

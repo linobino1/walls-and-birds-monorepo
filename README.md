@@ -1,82 +1,39 @@
-# Walls & Birds Web
+# Walls & Birds old website
 
-## Services
-### Frontend
+## Dev Environment
 
-Vue3
-
-### Backend
-
-PayloadCMS with mongoDB database
-
-### Newsletter System
-
-listmonk with PostgreSQL database
-
-## Setup Dev Environment
-
-start listmonks database:
-```
-docker compose -f docker-compose.ymal -f docker-compose.development.yaml up -d listmonk_db
-```
-
-initialize listmonks database:
-```
-docker compose -f docker-compose.yaml -f docker-compose.development.yaml run --rm listmonk ./listmonk --install
-```
-
-start all services:
-```
-docker compose -f docker-compose.ymal -f docker-compose.development.yaml up -d
+```bash
+docker compose up -d
 ```
 
 ## Deployment
 
-create network 'net' using `docker network create net`
+A traefik proxy is required. You can start one by running the following command:
 
-start listmonks database:
-```
-docker compose -f docker-compose.yaml -f docker-compose.production.yaml up -d listmonk_db
-```
-
-initialize listmonks database:
-```
-docker compose -f docker-compose.yaml -f docker-compose.production.yaml run --rm listmonk ./listmonk --install
+```bash
+docker compose -f docker-compose.traefik.yml up -d
 ```
 
-Run all services:
-```
-docker compose -f docker-compose.yaml -f docker-compose.production.yaml run --rm listmonk ./listmonk --install
+Then, you can deploy the stack by running the following command:
+
+```bash
+docker compose -f docker-compose.production.yaml up -d
 ```
 
 ## Migration
 
-### Old Websites Concerts data
+### Database
 
-Import the old data to the `old_db` mysql database.
+Import the old data to the `DB` mysql database.
 
 ```
 # terminal in the mysql container
-docker exec -it old_db sh
+docker exec -it <container> sh
 
 # log into mysql as root
 mysql -u root -p
 
 # load backup
 > use shows;
-> source /share/DB2613259-2023-01-20.sql 
-```
-
-### PostgreSQL Database (listmonk & nextcloud)
-
-#### Export
-
-```
-docker exec -i pg_container_name /bin/bash -c "PGPASSWORD=pg_password pg_dump --username pg_username database_name" > /desired/path/on/your/machine/dump.sql
-```
-
-#### Import
-
-```
-docker exec -i pg_container_name /bin/bash -c "PGPASSWORD=pg_password psql --username pg_username database_name" < /path/on/your/machine/dump.sql
+> source /seed/DB2613259-2023-01-20.sql 
 ```
